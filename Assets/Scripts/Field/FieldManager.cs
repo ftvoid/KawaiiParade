@@ -47,14 +47,17 @@ public class FieldManager : MonoBehaviour
 	/// <param name="spawnValue"></param>
 	private void SpawnObjects(int spawnValue)
 	{
-		for(int i = 0;i < spawnValue; i++)
+		int spawnCount = 0;
+		while(spawnCount < spawnValue)
 		{
-			var row    = Random.Range(0, _fieldSizeHorizontal);
+			var row = Random.Range(0, _fieldSizeHorizontal);
 			var column = Random.Range(0, _fieldSizeVertical);
 			var data = GetFieldData(row, column);
+			if (data._isItem) continue;
 			data._isItem = true;
 			SetFieldData(row, column, data);
 			Instantiate(_obje, data._position, Quaternion.identity, transform);
+			spawnCount++;
 		}
 	}
 
