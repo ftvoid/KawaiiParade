@@ -107,3 +107,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7c67c14e55a74d4d92489815aafb0fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _minWalkDistance: 1
+  _maxWalkDistance: 5
+  _walkSpeed: 10
+  _walkRange:
+    serializedVersion: 2
+    x: -5
+    y: -5
+    width: 10
+    height: 10
