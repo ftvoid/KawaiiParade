@@ -14,6 +14,11 @@ public class FieldInfomation
 public class FieldData
 {
 	/// <summary>
+	/// フィールドID
+	/// </summary>
+	public int _id = 0;
+
+	/// <summary>
 	/// 座標
 	/// </summary>
 	public Vector3 _position = Vector3.zero;

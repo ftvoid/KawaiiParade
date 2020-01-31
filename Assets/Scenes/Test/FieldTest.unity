@@ -150,8 +150,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c71a66c523748924799bc018bbb094af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fieldSizeHorizonta: 16
+  _fieldSizeHorizontal: 16
   _fieldSizeVertical: 8
+  _spawnItemValue: 5
   _obje: {fileID: 785830705}
   _field_datas: []
 --- !u!4 &201675097
