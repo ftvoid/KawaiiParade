@@ -2,24 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemManager : MonoBehaviour
+public class PlayerTest : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject _itemPrefab;
-
     // Start is called before the first frame update
     void Start()
     {
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    public void spawnItem(ItemData data, Vector2 position)
-    {
-        Item.Create(_itemPrefab, data, position);
+        transform.Translate(new Vector3(-0.2f*Time.deltaTime, 0, 0));
     }
 }
