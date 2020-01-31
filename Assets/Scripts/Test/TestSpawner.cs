@@ -2,24 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemManager : MonoBehaviour
+public class TestSpawner : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _itemPrefab;
+    private ItemData testData;
 
     // Start is called before the first frame update
     void Start()
     {
+        ItemManager itemManager = Object.FindObjectOfType<ItemManager>();
+        itemManager.spawnItem(testData, new Vector2(0, 1));
     }
 
     // Update is called once per frame
     void Update()
     {
         
-    }
-
-    public void spawnItem(ItemData data, Vector2 position)
-    {
-        Item.Create(_itemPrefab, data, position);
     }
 }
