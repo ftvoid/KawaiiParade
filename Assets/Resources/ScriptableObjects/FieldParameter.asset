@@ -16,5 +16,5 @@ MonoBehaviour:
   _fieldSizeVertical: 9
   _spawnItemValue: 10
   _minExsitItemValue: 2
-  _spawnEnemyValue: 5
+  _spawnEnemyValue: 1
   _spawnIntarval: 2
