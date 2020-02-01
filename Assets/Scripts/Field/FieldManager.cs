@@ -28,6 +28,12 @@ public class FieldManager : MonoBehaviour
 	[SerializeField]
 	private List<FieldInfomation> _field_datas = new List<FieldInfomation>();
 
+	[SerializeField]
+	private bool _isTestCreate = false;
+
+	[SerializeField]
+	private GameObject _testobj;
+
 	private float _spawnTimer = 0.0f;
 
 	/// <summary>
@@ -54,10 +60,17 @@ public class FieldManager : MonoBehaviour
 	{
 		if (_fieldInfo == null) _fieldInfo = this.GetComponent<FieldInfomation>();
 		_fieldInfo.CreateMapDatas();
-		//Spawn　Item
-		SpawnObjects(_fieldInfo.Parameter.SpawnItemValue,SpawnType.Item);
-		//Spawn　Enemy
-		SpawnObjects(_fieldInfo.Parameter.SpawnItemValue, SpawnType.Enemy);
+		if (!_isTestCreate)
+		{
+			//Spawn　Item
+			SpawnObjects(_fieldInfo.Parameter.SpawnItemValue, SpawnType.Item);
+			//Spawn　Enemy
+			SpawnObjects(_fieldInfo.Parameter.SpawnItemValue, SpawnType.Enemy);
+		}
+		else
+		{
+			TestCreateMapDatas();
+		}
 	}
 
 	// Update is called once per frame
@@ -163,5 +176,22 @@ public class FieldManager : MonoBehaviour
 
 		}
 		return false;
+	}
+
+	/// <summary>
+	///  MapDataの作成
+	/// </summary>
+	public void TestCreateMapDatas()
+	{
+		for (int i = 0; i < _fieldInfo.Parameter.FieldSizeHorizontal; i++)
+		{
+			for (int j = 0; j < _fieldInfo.Parameter.FieldSizeVertical; j++)
+			{
+				var x = i /*- (_fieldInfo.Parameter.FieldSizeHorizontal / 2)*/;
+				var y = j - (_fieldInfo.Parameter.FieldSizeVertical / 2);
+				var pos = new Vector3(x, y, 0) + this.transform.position;
+				Instantiate(_testobj, pos, Quaternion.identity, transform);
+			}
+		}
 	}
 }

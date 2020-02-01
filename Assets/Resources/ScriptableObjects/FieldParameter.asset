@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bef31eb56a953647835c215b9fde2a9, type: 3}
   m_Name: FieldParameter
   m_EditorClassIdentifier: 
-  _fieldSizeHorizontal: 16
-  _fieldSizeVertical: 8
+  _fieldSizeHorizontal: 12
+  _fieldSizeVertical: 9
   _spawnItemValue: 5
   _minExsitItemValue: 2
   _spawnEnemyValue: 5
