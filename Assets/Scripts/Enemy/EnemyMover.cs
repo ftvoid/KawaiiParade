@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
+/// <summary>
+/// 敵の動き
+/// </summary>
 public class EnemyMover : MonoBehaviour
 {
     [SerializeField] private float _minWalkDistance = 1;
