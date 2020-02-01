@@ -6,12 +6,17 @@ using UniRx;
 public class ScorePresenter : MonoBehaviour
 {
     public MainUITest model;
+    public GameState state;
     public ScoreView view;
 
     void Start ()
     {
-        model.scorePoint
+        state.R_Score
             .SkipLatestValueOnSubscribe()
             .Subscribe(_ => view.ScoreUpdate(_));
+
+        //model.scorePoint
+        //    .SkipLatestValueOnSubscribe()
+        //    .Subscribe(_ => view.ScoreUpdate(_));
     }
 }

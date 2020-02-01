@@ -69,6 +69,8 @@ public class EnemyMover : MonoBehaviour
             UnityEngine.Random.Range(_walkRange.xMin, _walkRange.xMax),
             UnityEngine.Random.Range(_walkRange.yMin, _walkRange.yMax));
 
+        nextPos = ClampPosition(nextPos);
+
         _motion = transform
             .DOMove(nextPos, _walkSpeed)
             .SetEase(Ease.Linear)
@@ -99,7 +101,9 @@ public class EnemyMover : MonoBehaviour
         if ( Mathf.Approximately(dir.magnitude, 0) )
             dir = Vector2.up;
 
-        transform.position += (Vector3)dir * _walkSpeed * Time.deltaTime;
+        var pos = transform.position;
+        pos += (Vector3)dir * _walkSpeed * Time.deltaTime;
+        transform.position = ClampPosition(pos);
     }
 
     // プレイヤーに接触した
@@ -171,5 +175,15 @@ public class EnemyMover : MonoBehaviour
         _state = State.RandomWalk;
 
         //InvokeRandomWalk();
+    }
+
+    private Vector2 ClampPosition(Vector2 position)
+    {
+        var min = FieldInfomation.Instance.MapMinPosition;
+        var max = FieldInfomation.Instance.MapMaxPosition;
+
+        return new Vector2(
+            Mathf.Clamp(position.x, min.x, max.x),
+            Mathf.Clamp(position.y, min.y, max.y));
     }
 }
