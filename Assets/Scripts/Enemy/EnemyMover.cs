@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UniRx;
 
 /// <summary>
 /// 敵の動き
@@ -18,10 +20,21 @@ public class EnemyMover : MonoBehaviour
     [SerializeField] private Rect _walkRange;
 
     private Enemy _enemy;
+    private Tween _motion;
 
     private void Awake()
     {
         _enemy = GetComponent<Enemy>();
+
+        _enemy
+            .OnPauseAsObservable()
+            .Subscribe(x => {
+                if ( x )
+                    PauseWalk();
+                else
+                    ResumeWalk();
+            });
+
         InvokeRandomWalk();
     }
 
@@ -31,11 +44,31 @@ public class EnemyMover : MonoBehaviour
             UnityEngine.Random.Range(_walkRange.xMin, _walkRange.xMax),
             UnityEngine.Random.Range(_walkRange.yMin, _walkRange.yMax));
 
-        transform
+        _motion = transform
             .DOMove(nextPos, _walkSpeed)
             .SetEase(Ease.Linear)
             .SetSpeedBased()
             .Play()
             .OnComplete(InvokeRandomWalk);
+    }
+
+    private void PauseWalk()
+    {
+        if ( _motion == null )
+            return;
+
+        Debug.Log("徘徊を一時停止");
+
+        _motion.Pause();
+    }
+
+    private void ResumeWalk()
+    {
+        if ( _motion == null )
+            return;
+
+        Debug.Log("徘徊を再開");
+
+        _motion.Play();
     }
 }

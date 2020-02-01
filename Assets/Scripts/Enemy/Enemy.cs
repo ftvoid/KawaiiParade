@@ -12,6 +12,10 @@ public class Enemy : MonoBehaviour
     // TODO : フィールドの持たせ方整理
     [SerializeField] private float _stopDuration = 1;
 
+    private Subject<bool> _onPause = new Subject<bool>();
+
+    public IObservable<bool> OnPauseAsObservable() => _onPause;
+
     private void Initialize(EnemyData data)
     {
         // TODO : 初期化
@@ -23,11 +27,11 @@ public class Enemy : MonoBehaviour
             return;
 
         // TODO : 一時停止する
-        Debug.Log("徘徊を一時停止");
+        _onPause.OnNext(true);
 
         Observable
             .Timer(TimeSpan.FromSeconds(_stopDuration))
-            .Subscribe(_ => Debug.Log("徘徊を再開"))
+            .Subscribe(_ => _onPause.OnNext(false))
             .AddTo(this);
     }
 }
