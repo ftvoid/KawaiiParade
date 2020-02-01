@@ -24,6 +24,7 @@ public class TitleManager : MonoBehaviour
                     .Where(q => Input.anyKeyDown)
                     .First()
                     .Subscribe(w => {
+                        SoundManager.PlaySound(SoundID.GameStartPush);
                         fadeView.Fade(1);
                         Observable.Timer(TimeSpan.FromMilliseconds(1100))
                             .Subscribe(e =>

@@ -23,6 +23,7 @@ public class SynopsisManager : MonoBehaviour
 					.First()
 					.Subscribe(w =>
 					{
+                        SoundManager.PlaySound(SoundID.Click);
 						fadeView.Fade(1);
 						Observable.Timer(TimeSpan.FromMilliseconds(1500))
 							.Subscribe(e => SceneChanger.Instance.ChangeScene(SceneType.GamePlay))
