@@ -9,9 +9,9 @@ public class ScoreView : MonoBehaviour
     [SerializeField] private TMP_Text m_score_Text;
     [SerializeField] private RectTransform rect;
 
-    public void ScoreUpdate (float score)
+    public void ScoreUpdate (float _score)
     {
-        m_score_Text.text = score.ToString();
+        m_score_Text.text = _score.ToString();
         Sequence seq = DOTween.Sequence();
         seq.Append(
             rect.DOScale(new Vector3(1.3f, 1.3f), 0.1f)
