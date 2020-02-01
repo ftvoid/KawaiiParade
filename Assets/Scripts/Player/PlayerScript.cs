@@ -188,7 +188,7 @@ public class PlayerScript : MonoBehaviour
         {
             isStop = true;
             Debug.Log("Enemy collided with player");
-
+            ItemManager.Instance.LoseItem();
             if (isNaked && this.gameObject.layer == playerLayer )
             {
                 StartCoroutine(InvincibleTime());
