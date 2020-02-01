@@ -156,6 +156,9 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5473261487928827039, guid: c760f4c004ba521439c6c1065744f30b,
     type: 3}
   _field_datas: []
+  _isTestCreate: 0
+  _testobj: {fileID: 5648764081604583277, guid: ed204e7aa007e4d57bea09096f12328b,
+    type: 3}
 --- !u!4 &201675097
 Transform:
   m_ObjectHideFlags: 0
@@ -164,7 +167,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 201675095}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -182,8 +185,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59441683d769e15428efc46697f602eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fieldSizeHorizontal: 16
-  _fieldSizeVertical: 8
   _BigMapData: []
 --- !u!114 &201675099
 MonoBehaviour:
