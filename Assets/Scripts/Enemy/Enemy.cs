@@ -9,12 +9,9 @@ using UniRx;
 /// </summary>
 public class Enemy : MonoBehaviour
 {
-    // TODO : フィールドの持たせ方整理
-    [SerializeField] private float _stopDuration = 1;
+    private Subject<Unit> _onPause = new Subject<Unit>();
 
-    private Subject<bool> _onPause = new Subject<bool>();
-
-    public IObservable<bool> OnPauseAsObservable() => _onPause;
+    public IObservable<Unit> OnCollidePlayerAsObservable() => _onPause;
 
     private void Initialize(EnemyData data)
     {
@@ -27,11 +24,6 @@ public class Enemy : MonoBehaviour
             return;
 
         // TODO : 一時停止する
-        _onPause.OnNext(true);
-
-        Observable
-            .Timer(TimeSpan.FromSeconds(_stopDuration))
-            .Subscribe(_ => _onPause.OnNext(false))
-            .AddTo(this);
+        _onPause.OnNext(Unit.Default);
     }
 }
