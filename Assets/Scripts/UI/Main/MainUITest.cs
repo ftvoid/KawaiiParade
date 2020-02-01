@@ -12,10 +12,12 @@ public class MainUITest : MonoBehaviour
     public float staminaConsumption = 100;
     public float staminaRecovery = 70;
     public FloatReactiveProperty staminaNow = new FloatReactiveProperty(0);
+    public IntReactiveProperty lifePoint = new IntReactiveProperty(3);
 
     void Start()
     {
         staminaNow.Value = staminaMax;
+        lifePoint.Value = 3;
     }
 
     void Update ()
@@ -36,6 +38,11 @@ public class MainUITest : MonoBehaviour
         else if(staminaNow.Value < staminaMax)
         {
             staminaNow.Value = Mathf.Clamp(staminaNow.Value + staminaRecovery * Time.deltaTime, 0, staminaMax);
+        }
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            lifePoint.Value--;
         }
 
     }
