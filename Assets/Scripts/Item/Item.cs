@@ -71,6 +71,7 @@ public class Item : MonoBehaviour
             // TODO: insert into player inventory
             Debug.Log("Item collided with player");
 			_isCollection = true;
+            SoundManager.PlaySound(SoundID.ItemGet);
         }
     }
 }
