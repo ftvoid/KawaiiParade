@@ -20,10 +20,16 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if ( collision.tag != "Player" )
-            return;
+        // TODO : リテラル使わないようにしたい…
+        switch ( collision.tag )
+        {
+            case "Player":
+                _onPause.OnNext(Unit.Default);
+                break;
 
-        // TODO : 一時停止する
-        _onPause.OnNext(Unit.Default);
+            case "NearbyPlayer":
+                Debug.Log("NearbyPlayer");
+                break;
+        }
     }
 }
