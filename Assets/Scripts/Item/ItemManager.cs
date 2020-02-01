@@ -39,10 +39,9 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
     // Update is called once per frame
     void Update()
     {
-
 		List<Item> itemList = new List<Item>();
 		itemList.AddRange(_itemList);
-        Debug.Log(itemList[0].IsCollection);
+
 		foreach (var item in itemList)
 		{
 			if (item.IsCollection)
@@ -59,7 +58,6 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
 				itemData.points = item.ItemData.points;
 				itemData.color = item.ItemData.color;
 				itemData.sprite = item.ItemData.sprite;
-                Debug.Log(090);
 				_collectionList.Add(itemData);
 				Destroy(item.gameObject);
 
@@ -91,31 +89,31 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
 	/// </summary>
 	public void LoseItem()
 	{
-        Debug.Log(809);
-        if (_collectionList.Count == 0)
+        if ( _collectionList.Count < 1 )
         {
-            Debug.Log(567587);
+            SoundManager.PlaySound(SoundID.GirlVoice);
             return;
         }
-        //else if ( _collectionList.Count == 1)
-        //{
-        //    //UI更新
-        //    _itemPresenter.ItemUpdate(false, _collectionList[0].points);
-        //    _collectionList.RemoveAt(0);
+		//int num = Random.Range(0, _collectionList.Count - 1);
+		int num = _collectionList.Count - 1;
 
-        //    return;
-        //}
-        
-        {
-            int num = _collectionList.Count - 1;
-            //UI更新
-            _itemPresenter.ItemUpdate(false, _collectionList[num].points);
-            _collectionList.RemoveAt(num);
+        //UI更新
+        _itemPresenter.ItemUpdate(false, _collectionList[num].points);
 
-        }
-        //int num = Random.Range(0, _collectionList.Count - 1);
+        _collectionList.RemoveAt(num);
 
+        StartCoroutine(PlayStrealSound());
     }
+
+    private IEnumerator PlayStrealSound()
+    {
+        SoundManager.PlaySound(SoundID.ItemSteal);
+
+        yield return new WaitForSeconds(0.5f);
+
+        SoundManager.PlaySound(SoundID.ManVoice);
+    }
+
     /// <summary>
     /// 獲得したアイテムの合計ポイントを返す
     /// </summary>

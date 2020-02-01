@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
+using UniRx.Triggers;
 using Random = UnityEngine.Random;
-
 
 [RequireComponent(typeof(FieldInfomation))]
 public class FieldManager : MonoBehaviour
@@ -21,9 +22,6 @@ public class FieldManager : MonoBehaviour
 
 	[SerializeField]
 	private ItemDatas _itemDatas = null;
-
-	[SerializeField]
-	private GameObject _enemyPrefab;
 
 	[SerializeField]
 	private List<FieldInfomation> _field_datas = new List<FieldInfomation>();
@@ -73,6 +71,12 @@ public class FieldManager : MonoBehaviour
 		{
 			TestCreateMapDatas();
 		}
+
+        GameState.Instance.R_Score
+            .Where(_ => EnemyManager.Instance)
+            .Where(x => x >= EnemyManager.Instance.NextSpawnScore)
+            .Subscribe(x => SpawnObjects(_fieldInfo.Parameter.SpawnEnemyValue, SpawnType.Enemy))
+            .AddTo(this);
 	}
 
 	// Update is called once per frame
@@ -162,7 +166,8 @@ public class FieldManager : MonoBehaviour
 	/// <param name="data"></param>
 	private void SpawnEnemy(MapData data)
 	{
-		Instantiate(_enemyPrefab, data._position, Quaternion.identity, transform);
+        EnemyManager.Instance.SpawnEnemy(data._position);
+		//Instantiate(_enemyPrefab, data._position, Quaternion.identity, transform);
 	}
 
 	/// <summary>

@@ -23,7 +23,7 @@ public class ScoreView : MonoBehaviour
 
     private void Update ()
     {
-        m_score_Text.text = score.ToString("00000000");
+        m_score_Text.text = score.ToString("0000000");
     }
 
 

@@ -18,14 +18,15 @@ public class TitleManager : MonoBehaviour
         )
         .AddTo(this);
 
-        Observable.Timer(TimeSpan.FromMilliseconds(1500))
+        Observable.Timer(TimeSpan.FromMilliseconds(1100))
         .Subscribe(_ =>
                 this.UpdateAsObservable()
                     .Where(q => Input.anyKeyDown)
                     .First()
                     .Subscribe(w => {
+                        SoundManager.PlaySound(SoundID.GameStartPush);
                         fadeView.Fade(1);
-                        Observable.Timer(TimeSpan.FromMilliseconds(1500))
+                        Observable.Timer(TimeSpan.FromMilliseconds(1100))
                             .Subscribe(e =>
                                 //SceneManager.LoadScene("Game")
 								SceneChanger.Instance.ChangeScene(SceneType.Synopsis)

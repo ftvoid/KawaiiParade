@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 敵マネージャ
 /// </summary>
-public class EnemyManager : MonoBehaviour
+public class EnemyManager : SingletonMonoBehaviour<EnemyManager>
 {
     [SerializeField] private Enemy _enemy;
 
@@ -14,6 +14,8 @@ public class EnemyManager : MonoBehaviour
     private List<Enemy> _enemies = new List<Enemy>();
 
     private EnemyData _param;
+
+    public int NextSpawnScore { get; private set; }
 
     /// <summary>
     /// 敵生成
@@ -28,11 +30,14 @@ public class EnemyManager : MonoBehaviour
         enemy.Initialize(_param);
         enemy.GetComponent<EnemyMover>()?.Initialize(_param);
 
+        NextSpawnScore += _param._spawnScoreInterval;
+
         return enemy;
     }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _param = Resources.Load<EnemyData>("ScriptableObjects/EnemyParameter");
     }
 

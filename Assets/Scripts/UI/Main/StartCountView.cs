@@ -27,23 +27,28 @@ public class StartCountView : MonoBehaviour
 
         TextFlash();
         m_text.text = "4";
+        SoundManager.PlaySound(SoundID.Pause);
         yield return new WaitForSeconds(0.5f);
 
         TextFlash();
         m_text.text = "3";
+        SoundManager.PlaySound(SoundID.Pause);
         yield return new WaitForSeconds(0.5f);
 
         TextFlash();
         m_text.text = "2";
+        SoundManager.PlaySound(SoundID.Pause);
         yield return new WaitForSeconds(0.25f);
 
         TextFlash();
         m_text.text = "1";
+        SoundManager.PlaySound(SoundID.Pause);
         yield return new WaitForSeconds(0.25f);
 
         TextFlash();
         m_text.text = "START";
         flag.Value = true;
+        SoundManager.PlaySound(SoundID.GameStartPush);
         yield return new WaitForSeconds(1);
         rect.DOScale(new Vector3(0, 0), 0);
     }

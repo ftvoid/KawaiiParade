@@ -20,12 +20,13 @@ public class TutorialView : MonoBehaviour
 
     public void TutorialStart()
     {
+        SoundManager.PlaySound(SoundID.Click);
+
         Debug.Log("チュートリアルオン");
         Sequence startSeq = DOTween.Sequence();
         startSeq.Append(
-            m_panel_CanvasGroup.DOFade(1, 0.3f)
+            m_panel_CanvasGroup.DOFade(1, 0.2f)
         );
-        startSeq.SetDelay(0.3f);
         startSeq.Append(
             m_rect.DOScaleX(1, 0.3f).SetEase(Ease.OutExpo)
         );
@@ -37,16 +38,16 @@ public class TutorialView : MonoBehaviour
             m_rect.DOScaleY(1, 0.3f).SetEase(Ease.OutExpo)
         );
 
-        Observable.Timer(TimeSpan.FromMilliseconds(1500))
-            .Subscribe(_ =>
-                m_typewriter.Play(m_text, 30, null)
-            )
+        Observable.Timer(TimeSpan.FromMilliseconds(1400))
+            .Subscribe(_ => {
+                m_typewriter.Play(m_text, 30, null);
+                ready = true;
+            })
             .AddTo(this);
 
-        Observable.Timer(TimeSpan.FromMilliseconds(2000))
+        Observable.Timer(TimeSpan.FromMilliseconds(1800))
             .Subscribe(_ => {
                 TextFlash();
-                ready = true;
             })
             .AddTo(this);
     }
@@ -55,6 +56,8 @@ public class TutorialView : MonoBehaviour
 
     public void TutorialEnd ()
     {
+        SoundManager.PlaySound(SoundID.Click);
+
         seqLoop.Kill();
         Sequence textSeq = DOTween.Sequence();
         textSeq.Append(
@@ -67,7 +70,7 @@ public class TutorialView : MonoBehaviour
             m_rect.DOScaleY(0, 0.3f)
         );
         textSeq.Append(
-            m_panel_CanvasGroup.DOFade(0, 0.3f)
+            m_panel_CanvasGroup.DOFade(0, 0.2f)
         );
         flag.Value = true;
     }
