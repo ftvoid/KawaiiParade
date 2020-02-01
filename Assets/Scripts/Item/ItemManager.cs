@@ -89,7 +89,11 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
 	/// </summary>
 	public void LoseItem()
 	{
-		if (_collectionList.Count < 1) return;
+        if ( _collectionList.Count < 1 )
+        {
+            SoundManager.PlaySound(SoundID.GirlVoice);
+            return;
+        }
 		//int num = Random.Range(0, _collectionList.Count - 1);
 		int num = _collectionList.Count - 1;
 
