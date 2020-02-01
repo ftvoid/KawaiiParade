@@ -18,8 +18,6 @@ public class EnemyMover : MonoBehaviour
 
     [SerializeField] private float _walkSpeed = 1;
 
-    [SerializeField] private Rect _walkRange;
-
     [SerializeField] private float _stopDuration = 1;
 
     private Enemy _enemy;
@@ -32,6 +30,14 @@ public class EnemyMover : MonoBehaviour
     }
 
     [SerializeField] private State _state = State.None;
+
+    public void Initialize(EnemyData param)
+    {
+        _minWalkDistance = param._minWalkDistance;
+        _maxWalkDistance = param._maxWalkDistance;
+        _walkSpeed = param._walkSpeed;
+        _stopDuration = param._stopDuration;
+    }
 
     private void Awake()
     {
@@ -65,9 +71,11 @@ public class EnemyMover : MonoBehaviour
     {
         _state = State.RandomWalk;
 
-        var nextPos = new Vector2(
-            UnityEngine.Random.Range(_walkRange.xMin, _walkRange.xMax),
-            UnityEngine.Random.Range(_walkRange.yMin, _walkRange.yMax));
+        var direction = UnityEngine.Random.Range(0, 2 * Mathf.PI);
+        var distance = UnityEngine.Random.Range(_minWalkDistance, _maxWalkDistance);
+
+        var nextPos = (Vector2)transform.position +
+            new Vector2(Mathf.Cos(direction), Mathf.Sin(direction)) * distance;
 
         nextPos = ClampPosition(nextPos);
 

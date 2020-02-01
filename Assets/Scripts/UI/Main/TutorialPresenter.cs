@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using UniRx.Triggers;
 
 public class TutorialPresenter : MonoBehaviour
 {
@@ -11,23 +12,22 @@ public class TutorialPresenter : MonoBehaviour
 
     void Start ()
     {
-        //model.lifePoint
-        //    .SkipLatestValueOnSubscribe()
-        //    .Subscribe(_ => view.LifeUpdate(_));
+        manager.StartFlag
+            .Where(_ => _ == 0)
+            .Subscribe(_ => view.TutorialStart());
+
+        this.UpdateAsObservable()
+            .Where(_ => Input.anyKey && view.ready)
+            .First()
+            .Subscribe(_ => view.TutorialEnd());
+
+        view.flag
+            .SkipLatestValueOnSubscribe()
+            .Where(_ => _)
+            .First()
+            .Subscribe(_ => manager.StartFlag.Value++);
 
     }
 
-    //private void Update ()
-    //{
-    //    if(Input.GetKeyDown(KeyCode.W))
-    //    {
-    //        view.TutorialStart();
-    //    }
-
-    //    if(Input.GetKeyDown(KeyCode.E))
-    //    {
-    //        view.TutorialEnd();
-    //    }
-    //}
 
 }
