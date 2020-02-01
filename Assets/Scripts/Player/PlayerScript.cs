@@ -34,6 +34,8 @@ public class PlayerScript : MonoBehaviour
     [SerializeField]
     GameObject Clothes;
     bool isDamage;
+    bool isNaked;
+
     SpriteRenderer clothesRenderer;    // Start is called before the first frame update
     void Start()
     {
@@ -50,7 +52,6 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(ItemManager.Instance.CollectionCount);
         if (ItemManager.Instance.CollectionCount <= 0)
             isNaked = true;
         else
@@ -64,6 +65,7 @@ public class PlayerScript : MonoBehaviour
         }
         GetInput();
         text.text = nowStamina.ToString() ;
+        PlayerStaminaManager();
     }
 
     /// <summary>
@@ -94,7 +96,6 @@ public class PlayerScript : MonoBehaviour
     {
         var moveVectorBeforeCorrection = new Vector3(inputX, inputY, 0);
         PlayerMove(moveVectorBeforeCorrection);
-        PlayerStaminaManager();
         Debug.Log(isNaked);
         //Debug.Log(isDamage);
     }
@@ -141,7 +142,6 @@ public class PlayerScript : MonoBehaviour
         }
 
     }
-    bool isNaked;
     /// <summary>
     /// スタミナを管理します。
     /// </summary>
@@ -193,7 +193,6 @@ public class PlayerScript : MonoBehaviour
         {
             cannnotDash = false;
         }
-
     }
 
     private void OnTriggerEnter2D(Collider2D other)

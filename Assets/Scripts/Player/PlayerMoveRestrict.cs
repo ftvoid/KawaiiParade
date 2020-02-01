@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 //sizeFromCenter = new Vector2(spriteRenderer.bounds.extents.x , spriteRenderer.bounds.extents.y);←プレイヤーの大きさの半分です。
 //プレイヤーが画面外に行くのを防ぎます。プレイヤーの大きさを考慮しています。
 //カメラが中心にあることが前提です。
@@ -49,7 +48,6 @@ public class PlayerMoveRestrict : MonoBehaviour
 //, Mathf.Clamp(player.transform.position.y, Camera.main.transform.position.y - playerLimitPosition.y, Camera.main.transform.position.y + playerLimitPosition.y)
 //, player.transform.position.z);
         var playerPos = transform.position;
-
         if(FieldInfomation.Instance != null)
         {
             var min = FieldInfomation.Instance.MapMinPosition;
@@ -58,10 +56,7 @@ public class PlayerMoveRestrict : MonoBehaviour
                 Mathf.Clamp(playerPos.x, min.x, max.x),
                 Mathf.Clamp(playerPos.y, min.y, max.y),
                 playerPos.z);
-
         }
-
-
         transform.position = playerPos;
     }
 }
