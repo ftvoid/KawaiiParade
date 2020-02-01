@@ -60,6 +60,7 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
     public void spawnItem(ItemData data, Vector2 position,int mapId)
     {
         var item = Item.Create(_itemPrefab, data, position);
+		item.MapID = mapId;
 		_itemList.Add(item);
     }
 

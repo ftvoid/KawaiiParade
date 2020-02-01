@@ -24,6 +24,42 @@ public class FieldInfomation : SingletonMonoBehaviour<FieldInfomation>
 	}
 
 	/// <summary>
+	/// 最小のマップID
+	/// </summary>
+	[SerializeField]
+	private int _minMapID = 0;
+	public int MinMapID
+	{
+		get { return _minMapID; }
+	}
+
+	/// <summary>
+	/// 最大のマップID
+	/// </summary>
+	[SerializeField]
+	private int _maxMapID = 0;
+	public int MaxMapID
+	{
+		get { return _maxMapID; }
+	}
+
+	/// <summary>
+	/// マップの最小座標
+	/// </summary>
+	public Vector3 MapMinPosition
+	{
+		get { return SearchMapData(_minMapID)._position; }
+	}
+
+	/// <summary>
+	/// マップの最大座標
+	/// </summary>
+	public Vector3 MapMaxPosition
+	{
+		get { return SearchMapData(_maxMapID)._position; }
+	}
+
+	/// <summary>
 	/// フィールドデータリスト
 	/// </summary>
 	[SerializeField]
@@ -33,6 +69,7 @@ public class FieldInfomation : SingletonMonoBehaviour<FieldInfomation>
 	{
 		base.Awake();
 		_param = Resources.Load<FieldParameter>("ScriptableObjects/FieldParameter");
+		_maxMapID = (_param.FieldSizeHorizontal - 1) * 10 + (_param.FieldSizeVertical - 1);
 	}
 
 	/// <summary>
