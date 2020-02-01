@@ -17,13 +17,13 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public IntReactiveProperty StartFlag = new IntReactiveProperty(0);
     [SerializeField] private GameObject m_fieldManager;
 
+    [SerializeField] private GameObject _player;
+
     public void StartGame()
     {
         Debug.Log("ゲーム開始！");
         
         StartCoroutine(InvokeCountDown());
-
-        
     }
 
     protected override void Awake()
@@ -63,8 +63,19 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         }
 
         StartGame();
+
+        // 各種スクリプト、オブジェクト有効化
         m_fieldManager.SetActive(true);
+
+        if ( _player != null )
+        {
+            var player = _player.GetComponent<PlayerScript>();
+            var playerMoveRestrict = _player.GetComponent<PlayerMoveRestrict>();
+
+            if ( player != null )
+                player.enabled = true;
+            if ( playerMoveRestrict != null )
+                playerMoveRestrict.enabled = true;
+        }
     }
-
-
 }
