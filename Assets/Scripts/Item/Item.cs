@@ -10,8 +10,23 @@ public class Item : MonoBehaviour
 
     private CircleCollider2D _collider;
 
-    // Start is called before the first frame update
-    void Start()
+	private ItemData _data;
+	public ItemData ItemData
+	{
+		get { return _data; }
+	}
+
+	/// <summary>
+	/// 回収フラグ
+	/// </summary>
+	private bool _isCollection = false;
+	public bool IsCollection
+	{
+		get { return _isCollection; }
+	}
+
+	// Start is called before the first frame update
+	void Start()
     {
         
     }
@@ -22,12 +37,13 @@ public class Item : MonoBehaviour
         
     }
 
-    public static void Create(GameObject prefab, ItemData data, Vector2 pos2d)
+    public static Item Create(GameObject prefab, ItemData data, Vector2 pos2d)
     {
         Vector3 pos3d = new Vector3(pos2d.x, pos2d.y, 0);
         GameObject obj = Instantiate(prefab, pos3d, Quaternion.identity);
         Item item = obj.GetComponent<Item>();
         item.initialize(data);
+		return item;
     }
 
     public void initialize(ItemData data)
@@ -35,6 +51,7 @@ public class Item : MonoBehaviour
         _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         _collider = gameObject.GetComponent<CircleCollider2D>();
         _spriteRenderer.sprite = data.sprite;
+		_spriteRenderer.color = data.color;
         _collider.radius = data.collisionRadius;
     }
 
@@ -44,6 +61,7 @@ public class Item : MonoBehaviour
         {
             // TODO: insert into player inventory
             Debug.Log("Item collided with player");
+			_isCollection = true;
         }
     }
 }
