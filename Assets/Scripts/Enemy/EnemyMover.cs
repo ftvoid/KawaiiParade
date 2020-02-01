@@ -79,7 +79,7 @@ public class EnemyMover : MonoBehaviour
 
     private void OnUpdateRandomWalk()
     {
-        Debug.Log("ランダムウォーク");
+        //Debug.Log("ランダムウォーク");
 
         if ( _motion == null )
             InvokeRandomWalk();
@@ -87,7 +87,7 @@ public class EnemyMover : MonoBehaviour
 
     private void OnUpdateChargeWalk()
     {
-        Debug.Log("追尾実行");
+        //Debug.Log("追尾実行");
 
         if ( _motion != null )
         {
