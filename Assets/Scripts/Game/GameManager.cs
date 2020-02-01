@@ -17,7 +17,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public IntReactiveProperty StartFlag = new IntReactiveProperty(0);
     [SerializeField] private GameObject m_fieldManager;
 
-    [SerializeField] private GameObject _player;
+    [SerializeField] private Behaviour[] _initialLockComponents;
 
     public void StartGame()
     {
@@ -29,6 +29,16 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     protected override void Awake()
     {
         base.Awake();
+
+        // カウントダウン時に特定コンポーネントを無効化
+        for(var i = 0 ; i < _initialLockComponents.Length ; ++i )
+        {
+            var component = _initialLockComponents[i];
+            if ( component == null )
+                continue;
+
+            component.enabled = false;
+        }
 
         GameState.Instance.R_RemainTime
             .Where(x => x <= 0)
@@ -81,15 +91,13 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         // 各種スクリプト、オブジェクト有効化
         m_fieldManager.SetActive(true);
 
-        if ( _player != null )
+        for ( var i = 0 ; i < _initialLockComponents.Length ; ++i )
         {
-            var player = _player.GetComponent<PlayerScript>();
-            var playerMoveRestrict = _player.GetComponent<PlayerMoveRestrict>();
+            var component = _initialLockComponents[i];
+            if ( component == null )
+                continue;
 
-            if ( player != null )
-                player.enabled = true;
-            if ( playerMoveRestrict != null )
-                playerMoveRestrict.enabled = true;
+            component.enabled = true;
         }
     }
 }
