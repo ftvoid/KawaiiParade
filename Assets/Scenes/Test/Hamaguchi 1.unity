@@ -380,6 +380,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   playerLimitPosition: {x: 0, y: 0}
+  UI: {fileID: 1770248239}
+  adjustment: 0.2
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,7 +463,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &991182913
 PrefabInstance:
@@ -1157,7 +1159,7 @@ PrefabInstance:
     - target: {fileID: 2019846615778129976, guid: ed8bbc87e9e62294a93217612e69ca17,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2019846615778129976, guid: ed8bbc87e9e62294a93217612e69ca17,
         type: 3}
@@ -1456,6 +1458,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed8bbc87e9e62294a93217612e69ca17, type: 3}
+--- !u!224 &1770248239 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2019846616905146124, guid: ed8bbc87e9e62294a93217612e69ca17,
+    type: 3}
+  m_PrefabInstance: {fileID: 1770248238}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1965880372
 GameObject:
   m_ObjectHideFlags: 0

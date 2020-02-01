@@ -28,6 +28,16 @@ public class FieldManager : MonoBehaviour
 	[SerializeField]
 	private List<FieldInfomation> _field_datas = new List<FieldInfomation>();
 
+	[SerializeField]
+	private bool _isTestCreate = false;
+
+	[SerializeField]
+	private GameObject _testobj;
+
+	private float _spawnTimer = 0.0f;
+
+	private float _timer = 0.0f;
+
 	/// <summary>
 	/// シングルトン
 	/// </summary>
@@ -52,16 +62,42 @@ public class FieldManager : MonoBehaviour
 	{
 		if (_fieldInfo == null) _fieldInfo = this.GetComponent<FieldInfomation>();
 		_fieldInfo.CreateMapDatas();
-		//Spawn　Item
-		SpawnObjects(_fieldInfo.Parameter.SpawnItemValue,SpawnType.Item);
-		//Spawn　Enemy
-		SpawnObjects(_fieldInfo.Parameter.SpawnItemValue, SpawnType.Enemy);
+		if (!_isTestCreate)
+		{
+			//Spawn　Item
+			SpawnObjects(_fieldInfo.Parameter.SpawnItemValue, SpawnType.Item);
+			//Spawn　Enemy
+			SpawnObjects(_fieldInfo.Parameter.SpawnEnemyValue, SpawnType.Enemy);
+		}
+		else
+		{
+			TestCreateMapDatas();
+		}
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-
+		if(ItemManager.Instance.ItemCount <= _fieldInfo.Parameter.MinExsitItemValue || ItemManager.Instance.ItemCount < _fieldInfo.Parameter.SpawnItemValue)
+		{
+			if(_spawnTimer >= _fieldInfo.Parameter.SpawnIntarval)
+			{
+				List<int> ids = new List<int>();
+				//マップデータ取得
+				Vector2 size = _fieldInfo.GetFieldSize;
+				var row = Random.Range(0, (int)size.x);
+				var column = Random.Range(0, (int)size.y);
+				var data = _fieldInfo.GetMapData(row, column);
+				//すでにItemが配置されていたらcontinue
+				if (data._isItem) return;
+				//配置間隔を広げるため
+				if (IsDiatance(ids, data._position, 4.0f)) return;
+				//Item生成
+				SpawnItem(data, row, column);
+				_spawnTimer = 0.0f;
+			}
+			_spawnTimer += Time.deltaTime;
+		}
 	}
 
 	/// <summary>
@@ -74,15 +110,21 @@ public class FieldManager : MonoBehaviour
 		List<int> ids = new List<int>();
 		while(spawnCount < spawnValue)
 		{
+			_timer += Time.deltaTime;
 			//マップデータ取得
 			Vector2 size = _fieldInfo.GetFieldSize;
 			var row = Random.Range(0, (int)size.x);
 			var column = Random.Range(0, (int)size.y);
 			var data = _fieldInfo.GetMapData(row, column);
+			if (_timer >= 5.0f)
+			{
+				ids.Clear();
+				_timer = 0.0f;
+			}
 			//すでにItemが配置されていたらcontinue
 			if (data._isItem) continue;
 			//配置間隔を広げるため
-			if (IsDiatance(ids, data._position, 4.0f)) continue;
+			if (IsDiatance(ids, data._position, 5.0f)) continue;
 			ids.Add(data._id);
 			if(spawnType == SpawnType.Item)
 			{
@@ -111,7 +153,7 @@ public class FieldManager : MonoBehaviour
 		_fieldInfo.SetMapData(row, column, data);
 		//Instantiate(_itemPrefab, data._position, Quaternion.identity, transform);
 		int num = Random.Range(0, _itemDatas.dataList.Count);
-		ItemManager.Instance.spawnItem(_itemDatas.dataList[num], data._position);
+		ItemManager.Instance.spawnItem(_itemDatas.dataList[num], data._position,data._id);
 	}
 
 	/// <summary>
@@ -142,5 +184,24 @@ public class FieldManager : MonoBehaviour
 
 		}
 		return false;
+	}
+
+	/// <summary>
+	///  MapDataの作成
+	/// </summary>
+	public void TestCreateMapDatas()
+	{
+		for (int i = 0; i < _fieldInfo.Parameter.FieldSizeHorizontal; i++)
+		{
+			for (int j = 0; j < _fieldInfo.Parameter.FieldSizeVertical; j++)
+			{
+				var x = i /*- (_fieldInfo.Parameter.FieldSizeHorizontal / 2)*/;
+				var y = j - (_fieldInfo.Parameter.FieldSizeVertical / 2);
+				var pos = new Vector3(x, y, 0) + this.transform.position;
+				var obj =  Instantiate(_testobj, pos, Quaternion.identity);
+				var item = obj.GetComponent<Item>();
+				item.MapID = _fieldInfo.GetMapData(i, j)._id;
+			}
+		}
 	}
 }

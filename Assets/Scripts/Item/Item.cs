@@ -16,6 +16,14 @@ public class Item : MonoBehaviour
 		get { return _data; }
 	}
 
+	[SerializeField]
+	private int _mapId = 0;
+	public int MapID
+	{
+		get { return _mapId; }
+		set { _mapId = value; }
+	}
+
 	/// <summary>
 	/// 回収フラグ
 	/// </summary>
@@ -50,6 +58,7 @@ public class Item : MonoBehaviour
     {
         _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         _collider = gameObject.GetComponent<CircleCollider2D>();
+		_data = data;
         _spriteRenderer.sprite = data.sprite;
 		_spriteRenderer.color = data.color;
         _collider.radius = data.collisionRadius;

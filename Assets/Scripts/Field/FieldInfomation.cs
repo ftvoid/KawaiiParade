@@ -7,17 +7,6 @@ using UnityEngine;
 public class FieldInfomation : SingletonMonoBehaviour<FieldInfomation>
 {
 	/// <summary>
-	/// フィールドサイズ（横）
-	/// </summary>
-	[SerializeField]
-	private int _fieldSizeHorizontal = 16;
-	/// <summary>
-	/// フィールドサイズ（縦）
-	/// </summary>
-	[SerializeField]
-	private int _fieldSizeVertical = 8;
-
-	/// <summary>
 	/// フィールドのパラメータ
 	/// </summary>
 	private FieldParameter _param = null;
@@ -35,6 +24,42 @@ public class FieldInfomation : SingletonMonoBehaviour<FieldInfomation>
 	}
 
 	/// <summary>
+	/// 最小のマップID
+	/// </summary>
+	[SerializeField]
+	private int _minMapID = 0;
+	public int MinMapID
+	{
+		get { return _minMapID; }
+	}
+
+	/// <summary>
+	/// 最大のマップID
+	/// </summary>
+	[SerializeField]
+	private int _maxMapID = 0;
+	public int MaxMapID
+	{
+		get { return _maxMapID; }
+	}
+
+	/// <summary>
+	/// マップの最小座標
+	/// </summary>
+	public Vector3 MapMinPosition
+	{
+		get { return SearchMapData(_minMapID)._position; }
+	}
+
+	/// <summary>
+	/// マップの最大座標
+	/// </summary>
+	public Vector3 MapMaxPosition
+	{
+		get { return SearchMapData(_maxMapID)._position; }
+	}
+
+	/// <summary>
 	/// フィールドデータリスト
 	/// </summary>
 	[SerializeField]
@@ -44,6 +69,7 @@ public class FieldInfomation : SingletonMonoBehaviour<FieldInfomation>
 	{
 		base.Awake();
 		_param = Resources.Load<FieldParameter>("ScriptableObjects/FieldParameter");
+		_maxMapID = (_param.FieldSizeHorizontal - 1) * 10 + (_param.FieldSizeVertical - 1);
 	}
 
 	/// <summary>
@@ -52,14 +78,14 @@ public class FieldInfomation : SingletonMonoBehaviour<FieldInfomation>
 	public void CreateMapDatas()
 	{
 		_BigMapData = new List<MapDatas>();
-		for (int i = 0; i < _fieldSizeHorizontal; i++)
+		for (int i = 0; i < _param.FieldSizeHorizontal; i++)
 		{
 			var datas = new MapDatas();
 			int num = 0;
-			for (int j = 0; j < _fieldSizeVertical; j++)
+			for (int j = 0; j < _param.FieldSizeVertical; j++)
 			{
-				var x = i - (_fieldSizeHorizontal / 2);
-				var y = j - (_fieldSizeVertical / 2);
+				var x = i; /*- (_param.FieldSizeHorizontal / 2);*/
+				var y = j - (_param.FieldSizeVertical / 2);
 				MapData data = new MapData();
 				var pos = new Vector3(x, y, 0) + this.transform.position;
 				data._position = pos;
