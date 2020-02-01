@@ -13,12 +13,14 @@ public class TutorialView : MonoBehaviour
     [SerializeField] RectTransform m_rect;
     private readonly string m_text = "START... \n - Push Any Button -";
     [SerializeField] private TMP_Typewriter m_typewriter;
+    public BoolReactiveProperty flag = new BoolReactiveProperty(false);
+    public bool ready = false;
 
     Sequence seqLoop;
 
     public void TutorialStart()
     {
-        
+        Debug.Log("チュートリアルオン");
         Sequence startSeq = DOTween.Sequence();
         startSeq.Append(
             m_panel_CanvasGroup.DOFade(1, 0.5f)
@@ -37,13 +39,14 @@ public class TutorialView : MonoBehaviour
 
         Observable.Timer(TimeSpan.FromMilliseconds(3000))
             .Subscribe(_ =>
-                m_typewriter.Play(m_text, 20, null)
+                m_typewriter.Play(m_text, 25, null)
             );
 
-        Observable.Timer(TimeSpan.FromMilliseconds(5000))
-            .Subscribe(_ => 
-                TextFlash()
-            );
+        Observable.Timer(TimeSpan.FromMilliseconds(4500))
+            .Subscribe(_ => {
+                TextFlash();
+                ready = true;
+            });
     }
 
 
@@ -65,7 +68,7 @@ public class TutorialView : MonoBehaviour
         textSeq.Append(
             m_panel_CanvasGroup.DOFade(0, 0.5f)
         );
-
+        flag.Value = true;
     }
 
 

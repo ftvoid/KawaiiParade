@@ -13,11 +13,14 @@ public class MainUITest : MonoBehaviour
     public float staminaRecovery = 70;
     public FloatReactiveProperty staminaNow = new FloatReactiveProperty(0);
     public IntReactiveProperty lifePoint = new IntReactiveProperty(3);
+    public StartCountView startCount;
 
     void Start()
     {
         staminaNow.Value = staminaMax;
         lifePoint.Value = 3;
+
+        //startCount.StartCount();
     }
 
     void Update ()
