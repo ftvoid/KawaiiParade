@@ -97,14 +97,24 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
         _itemPresenter.ItemUpdate(false, _collectionList[num].points);
 
         _collectionList.RemoveAt(num);
-        
+
+        StartCoroutine(PlayStrealSound());
     }
 
-	/// <summary>
-	/// 獲得したアイテムの合計ポイントを返す
-	/// </summary>
-	/// <returns></returns>
-	public int GetTotalPoint()
+    private IEnumerator PlayStrealSound()
+    {
+        SoundManager.PlaySound(SoundID.ItemSteal);
+
+        yield return new WaitForSeconds(0.5f);
+
+        SoundManager.PlaySound(SoundID.ManVoice);
+    }
+
+    /// <summary>
+    /// 獲得したアイテムの合計ポイントを返す
+    /// </summary>
+    /// <returns></returns>
+    public int GetTotalPoint()
 	{
 		int point = 0;
 		foreach(var i in _collectionList)
