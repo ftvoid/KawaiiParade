@@ -39,9 +39,10 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
     // Update is called once per frame
     void Update()
     {
+
 		List<Item> itemList = new List<Item>();
 		itemList.AddRange(_itemList);
-
+        Debug.Log(itemList[0].IsCollection);
 		foreach (var item in itemList)
 		{
 			if (item.IsCollection)
@@ -58,6 +59,7 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
 				itemData.points = item.ItemData.points;
 				itemData.color = item.ItemData.color;
 				itemData.sprite = item.ItemData.sprite;
+                Debug.Log(090);
 				_collectionList.Add(itemData);
 				Destroy(item.gameObject);
 
@@ -89,22 +91,36 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
 	/// </summary>
 	public void LoseItem()
 	{
-		if (_collectionList.Count < 1) return;
-		//int num = Random.Range(0, _collectionList.Count - 1);
-		int num = _collectionList.Count - 1;
+        Debug.Log(809);
+        if (_collectionList.Count == 0)
+        {
+            Debug.Log(567587);
+            return;
+        }
+        //else if ( _collectionList.Count == 1)
+        //{
+        //    //UI更新
+        //    _itemPresenter.ItemUpdate(false, _collectionList[0].points);
+        //    _collectionList.RemoveAt(0);
 
-        //UI更新
-        _itemPresenter.ItemUpdate(false, _collectionList[num].points);
-
-        _collectionList.RemoveAt(num);
+        //    return;
+        //}
         
-    }
+        {
+            int num = _collectionList.Count - 1;
+            //UI更新
+            _itemPresenter.ItemUpdate(false, _collectionList[num].points);
+            _collectionList.RemoveAt(num);
 
-	/// <summary>
-	/// 獲得したアイテムの合計ポイントを返す
-	/// </summary>
-	/// <returns></returns>
-	public int GetTotalPoint()
+        }
+        //int num = Random.Range(0, _collectionList.Count - 1);
+
+    }
+    /// <summary>
+    /// 獲得したアイテムの合計ポイントを返す
+    /// </summary>
+    /// <returns></returns>
+    public int GetTotalPoint()
 	{
 		int point = 0;
 		foreach(var i in _collectionList)

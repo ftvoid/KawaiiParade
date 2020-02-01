@@ -15,7 +15,7 @@ public class PlayerScript : MonoBehaviour
     }
     PlayerStatus playerStatus = PlayerStatus.Stop;
     new Rigidbody2D rigidbody;
-    SpriteRenderer spriteRenderer;
+    SpriteRenderer[] spriteRenderer;
     private const string Player_Paramater_PATH = "ScriptableObjects/Player Paramater";
     bool isStop;
     //スタミナが一度切れたら、走れません。
@@ -25,18 +25,21 @@ public class PlayerScript : MonoBehaviour
     int flamePerSecond = 60;
     public float maxStamina = 100;
     public FloatReactiveProperty nowStamina;
-    bool isNaked  =true;
     public IntReactiveProperty playerLife;
     int playerLayer;
     //無敵用レイヤーです。
     int invincibleLayer;
     [SerializeField]
     Text text;
-    // Start is called before the first frame update
+    [SerializeField]
+    GameObject Clothes;
+    bool isDamage;
+    SpriteRenderer clothesRenderer;    // Start is called before the first frame update
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponentsInChildren<SpriteRenderer>();
+        clothesRenderer = Clothes.GetComponent<SpriteRenderer>();
         paramater = Resources.Load<PlayerParamater>(Player_Paramater_PATH) as PlayerParamater;
         nowStamina.Value = paramater.StaminaMax;
         playerLayer =this.gameObject.layer;
@@ -47,6 +50,14 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(ItemManager.Instance.CollectionCount);
+        if (ItemManager.Instance.CollectionCount <= 0)
+            isNaked = true;
+        else
+        {
+            isNaked = false;
+        }
+
         if (isStop)
         {
             StopTimeCount();
@@ -84,6 +95,8 @@ public class PlayerScript : MonoBehaviour
         var moveVectorBeforeCorrection = new Vector3(inputX, inputY, 0);
         PlayerMove(moveVectorBeforeCorrection);
         PlayerStaminaManager();
+        Debug.Log(isNaked);
+        //Debug.Log(isDamage);
     }
 
     /// <summary>
@@ -128,7 +141,7 @@ public class PlayerScript : MonoBehaviour
         }
 
     }
-
+    bool isNaked;
     /// <summary>
     /// スタミナを管理します。
     /// </summary>
@@ -185,29 +198,68 @@ public class PlayerScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Enemy" && this.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Enemy" && this.gameObject.tag == "Player" )
         {
-            isStop = true;
-            Debug.Log("Enemy collided with player");
-            ItemManager.Instance.LoseItem();
-            if (isNaked && this.gameObject.layer == playerLayer )
+            var spriteRenderer = other.transform.GetChild(0).GetComponent<SpriteRenderer>();
+            if (ItemManager.Instance.CollectionCount != 0)
             {
+                spriteRenderer.sprite = ItemManager.Instance.GetItemData().sprite;
+                spriteRenderer.color = ItemManager.Instance.GetItemData().color;
+            }
+            isDamage = true;
+            //服を失います。
+            ItemManager.Instance.LoseItem();
+
+            Debug.Log("Enemy collided with player");
+            if (isNaked)
+            {
+                isStop = true;
                 StartCoroutine(InvincibleTime());
                 playerLife.Value -= 1;
             }
+            else
+            {
+                if (ItemManager.Instance.CollectionCount == 0)
+                {
+                    clothesRenderer.sprite = null;
+                    clothesRenderer.color = Color.white;
+                }
+                else
+                {
+                    clothesRenderer.sprite = ItemManager.Instance.GetItemData().sprite;
+                    clothesRenderer.color = ItemManager.Instance.GetItemData().color;
+                }
+
+            }
         }
+        if (other.gameObject.tag == "Item")
+        {
+            GetClothes(other);
+        }
+    }
+
+    private void GetClothes(Collider2D other)
+    {
+        var clothes = other.GetComponent<SpriteRenderer>();
+        clothesRenderer.sprite = clothes.sprite;
+        clothesRenderer.color = clothes.color;
     }
 
     public IEnumerator InvincibleTime()
     {
-        this.gameObject.layer = invincibleLayer;
         for (int i = 0; i < paramater.InvincibleTime * 10; i++)
         {
-            spriteRenderer.color = new Vector4(1.0f, 1.0f, 1.0f, 0.5f);
+            for (int j = 0; j < spriteRenderer.Length; j++)
+            {
+                spriteRenderer[j].enabled = false;
+            }
             yield return new WaitForSeconds(0.05f);
-            spriteRenderer.color = Color.white;
+            for (int j = 0; j < spriteRenderer.Length; j++)
+            {
+                spriteRenderer[j].enabled = true;
+            }
             yield return new WaitForSeconds(0.05f);
         }
-        this.gameObject.layer = playerLayer;
+        isDamage = false;
     }
 }

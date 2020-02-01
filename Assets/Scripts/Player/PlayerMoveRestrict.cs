@@ -34,7 +34,7 @@ public class PlayerMoveRestrict : MonoBehaviour
         var pixelPerUnit = screenHeight / orthographicSize;
         distanceFromCenter = new Vector2( (screenWidth / 2) / pixelPerUnit , (screenHeight / 2) / pixelPerUnit);
         //UISize = UI.sizeDelta / pixelPerUnit;
-        Debug.Log(UISize);
+//        Debug.Log(UISize);
         playerLimitPosition = new Vector2(distanceFromCenter.x  - playerSizeFromCenter.x , distanceFromCenter.y - playerSizeFromCenter.y);
         //playerLimitPosition_AdjustMent = new Vector2(distanceFromCenter.x - UISize.x - playerSizeFromCenter.x - adjustment, distanceFromCenter.y - playerSizeFromCenter.y);
     }
@@ -49,13 +49,18 @@ public class PlayerMoveRestrict : MonoBehaviour
 //, Mathf.Clamp(player.transform.position.y, Camera.main.transform.position.y - playerLimitPosition.y, Camera.main.transform.position.y + playerLimitPosition.y)
 //, player.transform.position.z);
         var playerPos = transform.position;
-        var min = FieldInfomation.Instance.MapMinPosition;
-        var max = FieldInfomation.Instance.MapMaxPosition;
 
-        playerPos = new Vector3(
-            Mathf.Clamp(playerPos.x, min.x, max.x),
-            Mathf.Clamp(playerPos.y, min.y, max.y),
-            playerPos.z);
+        if(FieldInfomation.Instance != null)
+        {
+            var min = FieldInfomation.Instance.MapMinPosition;
+            var max = FieldInfomation.Instance.MapMaxPosition;
+            playerPos = new Vector3(
+                Mathf.Clamp(playerPos.x, min.x, max.x),
+                Mathf.Clamp(playerPos.y, min.y, max.y),
+                playerPos.z);
+
+        }
+
 
         transform.position = playerPos;
     }
