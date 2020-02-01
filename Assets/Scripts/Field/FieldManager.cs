@@ -36,6 +36,8 @@ public class FieldManager : MonoBehaviour
 
 	private float _spawnTimer = 0.0f;
 
+	private float _timer = 0.0f;
+
 	/// <summary>
 	/// シングルトン
 	/// </summary>
@@ -65,7 +67,7 @@ public class FieldManager : MonoBehaviour
 			//Spawn　Item
 			SpawnObjects(_fieldInfo.Parameter.SpawnItemValue, SpawnType.Item);
 			//Spawn　Enemy
-			SpawnObjects(_fieldInfo.Parameter.SpawnItemValue, SpawnType.Enemy);
+			SpawnObjects(_fieldInfo.Parameter.SpawnEnemyValue, SpawnType.Enemy);
 		}
 		else
 		{
@@ -108,15 +110,21 @@ public class FieldManager : MonoBehaviour
 		List<int> ids = new List<int>();
 		while(spawnCount < spawnValue)
 		{
+			_timer += Time.deltaTime;
 			//マップデータ取得
 			Vector2 size = _fieldInfo.GetFieldSize;
 			var row = Random.Range(0, (int)size.x);
 			var column = Random.Range(0, (int)size.y);
 			var data = _fieldInfo.GetMapData(row, column);
+			if (_timer >= 5.0f)
+			{
+				ids.Clear();
+				_timer = 0.0f;
+			}
 			//すでにItemが配置されていたらcontinue
 			if (data._isItem) continue;
 			//配置間隔を広げるため
-			if (IsDiatance(ids, data._position, 4.0f)) continue;
+			if (IsDiatance(ids, data._position, 5.0f)) continue;
 			ids.Add(data._id);
 			if(spawnType == SpawnType.Item)
 			{
