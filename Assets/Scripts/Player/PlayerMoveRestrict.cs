@@ -42,11 +42,21 @@ public class PlayerMoveRestrict : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //プレイヤーの挙動を制御します。カメラの座標からの差分です。 Camera.mainからの距離を制限します。
-        player.transform.position     //↓xの移動範囲を制限します。     
-= new Vector3(Mathf.Clamp(player.transform.position.x,　Camera.main.transform.position.x - playerLimitPosition_AdjustMent.x, Camera.main.transform.position.x + playerLimitPosition.x)
-            //↓yの移動範囲を制限します。       
-, Mathf.Clamp(player.transform.position.y, Camera.main.transform.position.y - playerLimitPosition.y, Camera.main.transform.position.y + playerLimitPosition.y)
-, player.transform.position.z);
+//        //プレイヤーの挙動を制御します。カメラの座標からの差分です。 Camera.mainからの距離を制限します。
+//        player.transform.position     //↓xの移動範囲を制限します。     
+//= new Vector3(Mathf.Clamp(player.transform.position.x,　Camera.main.transform.position.x - playerLimitPosition_AdjustMent.x, Camera.main.transform.position.x + playerLimitPosition.x)
+//            //↓yの移動範囲を制限します。       
+//, Mathf.Clamp(player.transform.position.y, Camera.main.transform.position.y - playerLimitPosition.y, Camera.main.transform.position.y + playerLimitPosition.y)
+//, player.transform.position.z);
+        var playerPos = transform.position;
+        var min = FieldInfomation.Instance.MapMinPosition;
+        var max = FieldInfomation.Instance.MapMaxPosition;
+
+        playerPos = new Vector3(
+            Mathf.Clamp(playerPos.x, min.x, max.x),
+            Mathf.Clamp(playerPos.y, min.y, max.y),
+            playerPos.z);
+
+        transform.position = playerPos;
     }
 }
