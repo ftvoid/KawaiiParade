@@ -7,13 +7,6 @@ using UnityEngine;
 /// </summary>
 public class GameState : SingletonMonoBehaviour<GameState>
 {
-    /// <summary>
-    /// プレイヤーが移動できる範囲
-    /// </summary>
-    [SerializeField] private Rect _movableArea;
-
-    public static Rect MovableArea => instance._movableArea;
-
 	/// <summary>
 	/// ゲームのスコア
 	/// </summary>
@@ -24,4 +17,15 @@ public class GameState : SingletonMonoBehaviour<GameState>
 		get { return _score; }
 		set { _score = value; }
 	}
+
+    /// <summary>
+    /// ゲームの残り時間[s]
+    /// </summary>
+    [SerializeField]
+    private int _remainTime = 60;
+    public int RemainTime
+    {
+        get => _remainTime;
+        set => _remainTime = value;
+    }
 }
