@@ -95,20 +95,26 @@ public class EnemyMover : MonoBehaviour
             _motion = null;
         }
 
-        // TODO : 仮の動き
-        var pos = transform.position;
-        pos += Vector3.up * 5 * Time.deltaTime;
-        transform.position = pos;
+        Vector2 dir = (_targetPlayer.position - transform.position).normalized;
+        if ( Mathf.Approximately(dir.magnitude, 0) )
+            dir = Vector2.up;
+
+        transform.position += (Vector3)dir * _walkSpeed * Time.deltaTime;
     }
 
     // プレイヤーに接触した
     private void OnCollidePlayer()
     {
-        if ( _motion == null || _state == State.Freeze )
+        if ( _state == State.Freeze )
             return;
 
         // 徘徊を一時停止
-        _motion.Pause();
+        if ( _motion != null )
+        {
+            _motion.Kill();
+            _motion = null;
+        }
+
         _state = State.Freeze;
         Debug.Log("徘徊を一時停止");
 
@@ -118,7 +124,6 @@ public class EnemyMover : MonoBehaviour
             {
                 // 徘徊を再開
                 ForceRandomWalk();
-
                 Debug.Log("徘徊を再開");
             })
             .AddTo(this);
