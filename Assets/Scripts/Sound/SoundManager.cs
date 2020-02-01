@@ -54,7 +54,16 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
     [ContextMenu("TestPlaySound")]
     private void TestPlaySound()
     {
-        PlaySound(SoundID.Click);
+        StartCoroutine(OnTestPlaySound());
+    }
+
+    private IEnumerator OnTestPlaySound()
+    {
+        foreach(var sound in _sounds )
+        {
+            sound.Value.Play();
+            yield return new WaitForSeconds(2);
+        }
     }
 #endif
     #endregion

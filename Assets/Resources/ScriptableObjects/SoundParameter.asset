@@ -15,3 +15,15 @@ MonoBehaviour:
   _soundList:
   - soundId: 1
     resourcePath: Sounds/click
+  - soundId: 2
+    resourcePath: Sounds/game_start_push
+  - soundId: 3
+    resourcePath: Sounds/item_get
+  - soundId: 4
+    resourcePath: Sounds/item_steal
+  - soundId: 5
+    resourcePath: Sounds/pause
+  - soundId: 6
+    resourcePath: "Sounds/\u304A\u3058\u3055\u3093\u30DC\u30A4\u30B9"
+  - soundId: 7
+    resourcePath: "Sounds/\u5973\u306E\u5B50\u30DC\u30A4\u30B9"
