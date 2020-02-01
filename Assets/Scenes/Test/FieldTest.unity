@@ -152,8 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c71a66c523748924799bc018bbb094af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemPrefab: {fileID: 5648764081604583277, guid: ed204e7aa007e4d57bea09096f12328b,
-    type: 3}
+  _itemDatas: {fileID: 11400000, guid: c907569af55b3c94e925f768ae3f9af5, type: 2}
   _enemyPrefab: {fileID: 5473261487928827039, guid: c760f4c004ba521439c6c1065744f30b,
     type: 3}
   _field_datas: []

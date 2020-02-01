@@ -19,6 +19,8 @@ public class EnemyMover : MonoBehaviour
 
     [SerializeField] private Rect _walkRange;
 
+    [SerializeField] private float _stopDuration = 1;
+
     private Enemy _enemy;
     private Tween _motion;
 
@@ -27,13 +29,8 @@ public class EnemyMover : MonoBehaviour
         _enemy = GetComponent<Enemy>();
 
         _enemy
-            .OnPauseAsObservable()
-            .Subscribe(x => {
-                if ( x )
-                    PauseWalk();
-                else
-                    ResumeWalk();
-            });
+            .OnCollidePlayerAsObservable()
+            .Subscribe(_ => PauseWalk());
 
         InvokeRandomWalk();
     }
@@ -60,15 +57,14 @@ public class EnemyMover : MonoBehaviour
         Debug.Log("徘徊を一時停止");
 
         _motion.Pause();
-    }
 
-    private void ResumeWalk()
-    {
-        if ( _motion == null )
-            return;
-
-        Debug.Log("徘徊を再開");
-
-        _motion.Play();
+        Observable
+            .Timer(TimeSpan.FromSeconds(_stopDuration))
+            .Subscribe(_ => 
+            {
+                _motion.Play();
+                Debug.Log("徘徊を再開");
+            })
+            .AddTo(this);
     }
 }

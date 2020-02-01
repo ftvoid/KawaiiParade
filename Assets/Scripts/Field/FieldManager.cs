@@ -20,7 +20,7 @@ public class FieldManager : MonoBehaviour
 	private FieldInfomation _fieldInfo = null;
 
 	[SerializeField]
-	private GameObject _itemPrefab;
+	private ItemDatas _itemDatas = null;
 
 	[SerializeField]
 	private GameObject _enemyPrefab;
@@ -109,7 +109,9 @@ public class FieldManager : MonoBehaviour
 	{
 		data._isItem = true;
 		_fieldInfo.SetMapData(row, column, data);
-		Instantiate(_itemPrefab, data._position, Quaternion.identity, transform);
+		//Instantiate(_itemPrefab, data._position, Quaternion.identity, transform);
+		int num = Random.Range(0, _itemDatas.dataList.Count);
+		ItemManager.Instance.spawnItem(_itemDatas.dataList[num], data._position);
 	}
 
 	/// <summary>
