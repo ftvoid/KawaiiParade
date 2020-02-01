@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1579386979}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,13 +111,7 @@ MonoBehaviour:
   _minWalkDistance: 1
   _maxWalkDistance: 5
   _walkSpeed: 7
-  _walkRange:
-    serializedVersion: 2
-    x: -5
-    y: -5
-    width: 10
-    height: 10
-  _stopDuration: 1
+  _stopDuration: 4
   _state: 0
 --- !u!61 &1579386979
 BoxCollider2D:
