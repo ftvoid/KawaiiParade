@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 敵
+/// ゲーム進行管理
 /// </summary>
-public class Enemy : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
 }
