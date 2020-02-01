@@ -23,6 +23,7 @@ public class EnemyMover : MonoBehaviour
 
     private Enemy _enemy;
     private Tween _motion;
+    private Transform _targetPlayer;
 
     private void Awake()
     {
@@ -30,11 +31,20 @@ public class EnemyMover : MonoBehaviour
 
         _enemy
             .OnCollidePlayerAsObservable()
-            .Subscribe(_ => PauseWalk());
+            .Subscribe(_ => OnCollidePlayer());
+
+        _enemy
+            .OnFindPlayerAsObjservable()
+            .Subscribe(OnFindPlayer);
+
+        _enemy
+            .OnMissPlayerAsObservable()
+            .Subscribe(OnMissPlayer);
 
         InvokeRandomWalk();
     }
 
+    // ランダムウォーク実行
     private void InvokeRandomWalk()
     {
         var nextPos = new Vector2(
@@ -49,22 +59,53 @@ public class EnemyMover : MonoBehaviour
             .OnComplete(InvokeRandomWalk);
     }
 
-    private void PauseWalk()
+    // プレイヤー追尾実行
+    private void InvokeChargeWalk()
+    {
+    }
+
+    // プレイヤーに接触した
+    private void OnCollidePlayer()
     {
         if ( _motion == null )
             return;
 
-        Debug.Log("徘徊を一時停止");
-
+        // 徘徊を一時停止
         _motion.Pause();
+        Debug.Log("徘徊を一時停止");
 
         Observable
             .Timer(TimeSpan.FromSeconds(_stopDuration))
             .Subscribe(_ => 
             {
+                // 徘徊を再開
                 _motion.Play();
                 Debug.Log("徘徊を再開");
             })
             .AddTo(this);
+    }
+
+    // プレイヤーを発見した
+    private void OnFindPlayer(Transform target)
+    {
+        _targetPlayer = target;
+
+        //_motion?.Kill();
+
+        Debug.Log("プレイヤーを発見");
+
+        //InvokeChargeWalk();
+    }
+
+    // プレイヤーを見失った
+    private void OnMissPlayer(Transform target)
+    {
+        _targetPlayer = null;
+
+        //_motion?.Kill();
+
+        Debug.Log("プレイヤーを見失った");
+
+        //InvokeRandomWalk();
     }
 }

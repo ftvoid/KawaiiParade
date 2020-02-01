@@ -10,10 +10,12 @@ using UniRx;
 public class Enemy : MonoBehaviour
 {
     private Subject<Unit> _onCollidePlayer = new Subject<Unit>();
-    private Subject<Unit> _onFindPlayer = new Subject<Unit>();
-    private Subject<Unit> _onMissPlayer = new Subject<Unit>();
+    private Subject<Transform> _onFindPlayer = new Subject<Transform>();
+    private Subject<Transform> _onMissPlayer = new Subject<Transform>();
 
     public IObservable<Unit> OnCollidePlayerAsObservable() => _onCollidePlayer;
+    public IObservable<Transform> OnFindPlayerAsObjservable() => _onFindPlayer;
+    public IObservable<Transform> OnMissPlayerAsObservable() => _onMissPlayer;
 
     private void Initialize(EnemyData data)
     {
@@ -30,8 +32,7 @@ public class Enemy : MonoBehaviour
                 break;
 
             case "NearbyPlayer":
-                _onFindPlayer.OnNext(Unit.Default);
-                Debug.Log("プレイヤーを発見");
+                _onFindPlayer.OnNext(collision.transform);
                 break;
         }
     }
@@ -42,8 +43,7 @@ public class Enemy : MonoBehaviour
         switch ( collision.tag )
         {
             case "NearbyPlayer":
-                _onMissPlayer.OnNext(Unit.Default);
-                Debug.Log("プレイヤーを見失った");
+                _onMissPlayer.OnNext(collision.transform);
                 break;
         }
     }
