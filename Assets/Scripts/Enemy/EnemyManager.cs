@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 敵マネージャ
 /// </summary>
-public class EnemyManager : MonoBehaviour
+public class EnemyManager : SingletonMonoBehaviour<EnemyManager>
 {
     [SerializeField] private Enemy _enemy;
 
@@ -31,8 +31,9 @@ public class EnemyManager : MonoBehaviour
         return enemy;
     }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _param = Resources.Load<EnemyData>("ScriptableObjects/EnemyParameter");
     }
 

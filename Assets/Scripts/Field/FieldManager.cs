@@ -23,9 +23,6 @@ public class FieldManager : MonoBehaviour
 	private ItemDatas _itemDatas = null;
 
 	[SerializeField]
-	private GameObject _enemyPrefab;
-
-	[SerializeField]
 	private List<FieldInfomation> _field_datas = new List<FieldInfomation>();
 
 	[SerializeField]
@@ -162,7 +159,8 @@ public class FieldManager : MonoBehaviour
 	/// <param name="data"></param>
 	private void SpawnEnemy(MapData data)
 	{
-		Instantiate(_enemyPrefab, data._position, Quaternion.identity, transform);
+        EnemyManager.Instance.SpawnEnemy(data._position);
+		//Instantiate(_enemyPrefab, data._position, Quaternion.identity, transform);
 	}
 
 	/// <summary>
