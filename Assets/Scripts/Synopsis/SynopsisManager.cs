@@ -14,7 +14,7 @@ public class SynopsisManager : MonoBehaviour
 		Observable.Timer(TimeSpan.FromMilliseconds(500))
 		.Subscribe(_ =>
 			fadeView.Fade(0)
-		);
+		).AddTo(this);
 
 		Observable.Timer(TimeSpan.FromMilliseconds(1500))
 		.Subscribe(_ =>
@@ -25,9 +25,11 @@ public class SynopsisManager : MonoBehaviour
 					{
 						fadeView.Fade(1);
 						Observable.Timer(TimeSpan.FromMilliseconds(1500))
-							.Subscribe(e => SceneChanger.Instance.ChangeScene(SceneType.GamePlay));
+							.Subscribe(e => SceneChanger.Instance.ChangeScene(SceneType.GamePlay))
+                            .AddTo(this);
 					})
-		);
+		)
+        .AddTo(this);
 
 	}
 }

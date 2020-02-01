@@ -40,13 +40,15 @@ public class TutorialView : MonoBehaviour
         Observable.Timer(TimeSpan.FromMilliseconds(3000))
             .Subscribe(_ =>
                 m_typewriter.Play(m_text, 25, null)
-            );
+            )
+            .AddTo(this);
 
         Observable.Timer(TimeSpan.FromMilliseconds(4500))
             .Subscribe(_ => {
                 TextFlash();
                 ready = true;
-            });
+            })
+            .AddTo(this);
     }
 
 

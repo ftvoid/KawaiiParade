@@ -27,6 +27,7 @@ public class TextView : MonoBehaviour
 		Observable.Timer(TimeSpan.FromSeconds(_time_secound))
 			.Subscribe(_ =>
 				m_typewriter.Play(m_text, _message_speed, null)
-			);
+			)
+            .AddTo(this);
 	}
 }

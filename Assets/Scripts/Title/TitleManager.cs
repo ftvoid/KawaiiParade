@@ -15,7 +15,8 @@ public class TitleManager : MonoBehaviour
         Observable.Timer(TimeSpan.FromMilliseconds(500))
         .Subscribe(_ =>
             fadeView.Fade(0)
-        );
+        )
+        .AddTo(this);
 
         Observable.Timer(TimeSpan.FromMilliseconds(1500))
         .Subscribe(_ =>
@@ -28,9 +29,11 @@ public class TitleManager : MonoBehaviour
                             .Subscribe(e =>
                                 //SceneManager.LoadScene("Game")
 								SceneChanger.Instance.ChangeScene(SceneType.Synopsis)
-                            );
+                            )
+                            .AddTo(this);
                     })
-        );
+        )
+        .AddTo(this);
 
     }
 

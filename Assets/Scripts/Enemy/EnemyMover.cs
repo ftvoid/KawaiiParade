@@ -187,6 +187,9 @@ public class EnemyMover : MonoBehaviour
 
     private Vector2 ClampPosition(Vector2 position)
     {
+        if ( FieldInfomation.Instance == null )
+            return position;
+
         var min = FieldInfomation.Instance.MapMinPosition;
         var max = FieldInfomation.Instance.MapMaxPosition;
 
