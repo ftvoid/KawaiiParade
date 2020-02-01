@@ -11,6 +11,14 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
 
     private Dictionary<SoundID, AudioSource> _sounds = new Dictionary<SoundID, AudioSource>();
 
+    [RuntimeInitializeOnLoadMethod]
+    private static void CreateInstance()
+    {
+        var obj = new GameObject("SoundManager");
+        obj.AddComponent<SoundManager>();
+        DontDestroyOnLoad(obj);
+    }
+
     /// <summary>
     /// 指定されたIDのサウンドを再生する
     /// </summary>
