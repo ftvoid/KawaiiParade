@@ -43,6 +43,8 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
 		{
 			if (item.IsCollection)
 			{
+				//スコア加算
+				GameState.instance.Score += item.ItemData.points;
 				_itemList.Remove(item);
 				var mapData = FieldInfomation.instance.SearchMapData(item.MapID);
 				mapData._isItem = false;
