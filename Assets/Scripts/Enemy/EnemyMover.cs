@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UniRx;
+using UniRx.Triggers;
 
 /// <summary>
 /// 敵の動き
@@ -27,7 +28,7 @@ public class EnemyMover : MonoBehaviour
 
     private enum State
     {
-        None, RandomWalk, ChargeWalk, Escape, Freeze,
+        None, RandomWalk, ChargeWalk, RandomWalkForce, Freeze,
     }
 
     [SerializeField] private State _state = State.None;
@@ -48,7 +49,15 @@ public class EnemyMover : MonoBehaviour
             .OnMissPlayerAsObservable()
             .Subscribe(OnMissPlayer);
 
-        InvokeRandomWalk();
+        this.UpdateAsObservable()
+            .Where(_ => _state == State.RandomWalk || _state == State.RandomWalkForce)
+            .Subscribe(_ => OnUpdateRandomWalk());
+
+        this.UpdateAsObservable()
+            .Where(_ => _state == State.ChargeWalk)
+            .Subscribe(_ => OnUpdateChargeWalk());
+
+        _state = State.RandomWalk;
     }
 
     // ランダムウォーク実行
@@ -68,10 +77,28 @@ public class EnemyMover : MonoBehaviour
             .OnComplete(InvokeRandomWalk);
     }
 
-    // プレイヤー追尾実行
-    private void InvokeChargeWalk()
+    private void OnUpdateRandomWalk()
     {
+        Debug.Log("ランダムウォーク");
 
+        if ( _motion == null )
+            InvokeRandomWalk();
+    }
+
+    private void OnUpdateChargeWalk()
+    {
+        Debug.Log("追尾実行");
+
+        if ( _motion != null )
+        {
+            _motion.Kill();
+            _motion = null;
+        }
+
+        // TODO : 仮の動き
+        var pos = transform.position;
+        pos += Vector3.up * 5 * Time.deltaTime;
+        transform.position = pos;
     }
 
     // プレイヤーに接触した
@@ -90,7 +117,7 @@ public class EnemyMover : MonoBehaviour
             .Subscribe(_ =>
             {
                 // 徘徊を再開
-                Escape();
+                ForceRandomWalk();
 
                 Debug.Log("徘徊を再開");
             })
@@ -98,19 +125,19 @@ public class EnemyMover : MonoBehaviour
     }
 
     // 一定時間強制的にランダムウォーク
-    private void Escape()
+    private void ForceRandomWalk()
     {
-        _state = State.Escape;
+        _state = State.RandomWalkForce;
 
         if ( _motion != null )
             _motion.Play();
         else
-            InvokeChargeWalk();
+            InvokeRandomWalk();
 
         // 一定時間は追わないモードにする
         Observable
             .Timer(TimeSpan.FromSeconds(1))
-            .Where(_ => _state == State.Escape)
+            .Where(_ => _state == State.RandomWalkForce)
             .Subscribe(_ => _state = State.RandomWalk)
             .AddTo(this);
     }
