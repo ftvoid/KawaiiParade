@@ -51,6 +51,8 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
 				FieldInfomation.Instance.SetMapData(num1, num2, mapData);
 				var itemData = new ItemData();
 				itemData.points = item.ItemData.points;
+				itemData.color = item.ItemData.color;
+				itemData.sprite = item.ItemData.sprite;
 				_collectionList.Add(itemData);
 				Destroy(item.gameObject);
 			}
@@ -65,12 +67,23 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
     }
 
 	/// <summary>
+	/// 一番新しいアイテムデータを返す
+	/// </summary>
+	/// <returns></returns>
+	public ItemData GetItemData()
+	{
+		int num = _collectionList.Count - 1;
+		return _collectionList[num];
+	}
+
+	/// <summary>
 	/// アイテムを無くす
 	/// </summary>
 	public void LoseItem()
 	{
 		if (_collectionList.Count < 1) return;
-		int num = Random.Range(0, _collectionList.Count - 1);
+		//int num = Random.Range(0, _collectionList.Count - 1);
+		int num = _collectionList.Count - 1;
 		_collectionList.RemoveAt(num);
 
 	}
