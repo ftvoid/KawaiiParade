@@ -11,7 +11,7 @@ public class TestSpawner : MonoBehaviour
     void Start()
     {
         ItemManager itemManager = Object.FindObjectOfType<ItemManager>();
-        itemManager.spawnItem(testData, new Vector2(0, 1));
+        itemManager.spawnItem(testData, new Vector2(0, 1),0);
     }
 
     // Update is called once per frame

@@ -9,7 +9,7 @@ public class TimerView : MonoBehaviour
 
     public void TimerUpdate(float _time)
     {
-        m_timer_Text.text = _time.ToString("f1");
+        m_timer_Text.text = _time.ToString("f0");
     }
 
 }
