@@ -28,6 +28,8 @@ public class FieldManager : MonoBehaviour
 	[SerializeField]
 	private List<FieldInfomation> _field_datas = new List<FieldInfomation>();
 
+	private float _spawnTimer = 0.0f;
+
 	/// <summary>
 	/// シングルトン
 	/// </summary>
@@ -61,7 +63,26 @@ public class FieldManager : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-
+		if(ItemManager.Instance.ItemCount <= _fieldInfo.Parameter.MinExsitItemValue || ItemManager.Instance.ItemCount < _fieldInfo.Parameter.SpawnItemValue)
+		{
+			if(_spawnTimer >= _fieldInfo.Parameter.SpawnIntarval)
+			{
+				List<int> ids = new List<int>();
+				//マップデータ取得
+				Vector2 size = _fieldInfo.GetFieldSize;
+				var row = Random.Range(0, (int)size.x);
+				var column = Random.Range(0, (int)size.y);
+				var data = _fieldInfo.GetMapData(row, column);
+				//すでにItemが配置されていたらcontinue
+				if (data._isItem) return;
+				//配置間隔を広げるため
+				if (IsDiatance(ids, data._position, 4.0f)) return;
+				//Item生成
+				SpawnItem(data, row, column);
+				_spawnTimer = 0.0f;
+			}
+			_spawnTimer += Time.deltaTime;
+		}
 	}
 
 	/// <summary>
@@ -111,7 +132,7 @@ public class FieldManager : MonoBehaviour
 		_fieldInfo.SetMapData(row, column, data);
 		//Instantiate(_itemPrefab, data._position, Quaternion.identity, transform);
 		int num = Random.Range(0, _itemDatas.dataList.Count);
-		ItemManager.Instance.spawnItem(_itemDatas.dataList[num], data._position);
+		ItemManager.Instance.spawnItem(_itemDatas.dataList[num], data._position,data._id);
 	}
 
 	/// <summary>

@@ -17,3 +17,4 @@ MonoBehaviour:
   _spawnItemValue: 5
   _minExsitItemValue: 2
   _spawnEnemyValue: 5
+  _spawnIntarval: 2
