@@ -32,11 +32,16 @@ public class PlayerScript : MonoBehaviour
     int invincibleLayer;
     [SerializeField]
     Text text;
+    [SerializeField]
+    GameObject Clothes;
+    SpriteRenderer clothesRenderer;
+
     // Start is called before the first frame update
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        clothesRenderer = Clothes.GetComponent<SpriteRenderer>();
         paramater = Resources.Load<PlayerParamater>(Player_Paramater_PATH) as PlayerParamater;
         nowStamina.Value = paramater.StaminaMax;
         playerLayer =this.gameObject.layer;
@@ -184,6 +189,7 @@ public class PlayerScript : MonoBehaviour
 
     }
 
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Enemy" && this.gameObject.tag == "Player")
@@ -197,8 +203,26 @@ public class PlayerScript : MonoBehaviour
                 playerLife.Value -= 1;
             }
         }
+
+        //拾った服を着ます。
+        if (other.gameObject.tag == "Item")
+        {
+            GetClothes(other);
+        }
     }
 
+    private void GetClothes(Collider2D other)
+    {
+        var itemSpriteRenderer = other.GetComponent<SpriteRenderer>();
+        var itemSpriteColor = itemSpriteRenderer.color;
+        this.clothesRenderer.sprite = itemSpriteRenderer.sprite;
+        this.clothesRenderer.color = itemSpriteColor;
+    }
+
+    /// <summary>
+    /// 無敵時間です。
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator InvincibleTime()
     {
         this.gameObject.layer = invincibleLayer;
