@@ -15,10 +15,5 @@ MonoBehaviour:
   _minWalkDistance: 1
   _maxWalkDistance: 5
   _walkSpeed: 7
-  _walkRange:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
   _stopDuration: 1
+  _spawnScoreInterval: 20000

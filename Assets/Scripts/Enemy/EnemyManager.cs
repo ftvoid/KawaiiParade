@@ -15,6 +15,8 @@ public class EnemyManager : SingletonMonoBehaviour<EnemyManager>
 
     private EnemyData _param;
 
+    public int NextSpawnScore { get; private set; }
+
     /// <summary>
     /// 敵生成
     /// </summary>
@@ -27,6 +29,8 @@ public class EnemyManager : SingletonMonoBehaviour<EnemyManager>
 
         enemy.Initialize(_param);
         enemy.GetComponent<EnemyMover>()?.Initialize(_param);
+
+        NextSpawnScore += _param._spawnScoreInterval;
 
         return enemy;
     }
