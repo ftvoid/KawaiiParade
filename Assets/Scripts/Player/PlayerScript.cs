@@ -21,7 +21,6 @@ public class PlayerScript : MonoBehaviour
     bool cannnotDash;
     float timeCount = 0;
     private float inputX, inputY;
-    int flamePerSecond = 60;
     float nowStamina;
     bool isNaked  =true;
     int playerLife;
@@ -197,6 +196,10 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 無敵になった時に呼ばれます。
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator InvincibleTime()
     {
         this.gameObject.layer = invincibleLayer;
