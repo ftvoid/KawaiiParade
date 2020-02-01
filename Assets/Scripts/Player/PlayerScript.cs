@@ -31,8 +31,6 @@ public class PlayerScript : MonoBehaviour
     //無敵用レイヤーです。
     int invincibleLayer;
     [SerializeField]
-    Text text;
-    [SerializeField]
     GameObject Clothes;
     SpriteRenderer clothesRenderer;
 
@@ -58,7 +56,6 @@ public class PlayerScript : MonoBehaviour
         }
         GetInput();
         Debug.Log(playerLife);
-        text.text = nowStamina.ToString() ;
     }
 
     /// <summary>

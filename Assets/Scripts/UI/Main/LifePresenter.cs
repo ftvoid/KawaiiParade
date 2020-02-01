@@ -11,6 +11,8 @@ public class LifePresenter : MonoBehaviour
 
     void Start ()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>();
+
         player.playerLife
             .SkipLatestValueOnSubscribe()
             .Subscribe(_ => view.LifeUpdate(_));

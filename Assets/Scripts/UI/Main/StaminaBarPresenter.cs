@@ -11,6 +11,7 @@ public class StaminaBarPresenter : MonoBehaviour
 
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>();
         view.m_staminaMax = player.maxStamina;
         player.nowStamina
             .SkipLatestValueOnSubscribe()
