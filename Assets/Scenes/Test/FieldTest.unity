@@ -357,12 +357,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bfb7aa04f87e0b41b1fe346f4a32b0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movableArea:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
+  _score:
+    value: 0
+  _remainTime:
+    value: 60
 --- !u!114 &1252311340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,6 +373,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a27a773d81d9bc439c01c9dea650904, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartFlag:
+    value: 0
+  m_fieldManager: {fileID: 0}
 --- !u!1001 &1254318881
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -382,6 +383,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1008510547, guid: ed8bbc87e9e62294a93217612e69ca17, type: 3}
+      propertyPath: manager
+      value: 
+      objectReference: {fileID: 1252311340}
+    - target: {fileID: 1532570871, guid: ed8bbc87e9e62294a93217612e69ca17, type: 3}
+      propertyPath: manager
+      value: 
+      objectReference: {fileID: 1252311340}
     - target: {fileID: 2019846615240935940, guid: ed8bbc87e9e62294a93217612e69ca17,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -667,6 +676,26 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2019846616525367949, guid: ed8bbc87e9e62294a93217612e69ca17,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 2045947955}
+    - target: {fileID: 2019846616525367950, guid: ed8bbc87e9e62294a93217612e69ca17,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 2045947955}
+    - target: {fileID: 2019846616525367951, guid: ed8bbc87e9e62294a93217612e69ca17,
+        type: 3}
+      propertyPath: state
+      value: 
+      objectReference: {fileID: 1252311339}
+    - target: {fileID: 2019846616525367952, guid: ed8bbc87e9e62294a93217612e69ca17,
+        type: 3}
+      propertyPath: state
+      value: 
+      objectReference: {fileID: 1252311339}
     - target: {fileID: 2019846616589306991, guid: ed8bbc87e9e62294a93217612e69ca17,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -1163,6 +1192,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 293dcb526c4eee54e80c5b1d369170e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxStamina: 100
+  nowStamina:
+    value: 0
+  playerLife:
+    value: 0
   text: {fileID: 510082136}
 --- !u!212 &2045947956
 SpriteRenderer:

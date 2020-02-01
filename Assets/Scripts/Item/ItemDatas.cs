@@ -27,4 +27,6 @@ public class ItemData
 	public int points;
 
 	public Color color = Color.white;
+
+	public float speedReta = 0.0f;
 }
