@@ -3,9 +3,9 @@
 [CreateAssetMenu(fileName = "EnemyData", menuName = "ScriptableObjects/EnemyData", order = 2)]
 public class EnemyData : ScriptableObject
 {
-    public Sprite sprite;
-
-    public float collisionRadius = 0.4f;
-
-    public float stopDuration = 1;
+    public float _minWalkDistance = 1;
+    public float _maxWalkDistance = 2;
+    public float _walkSpeed = 1;
+    public Rect _walkRange;
+    public float _stopDuration = 1;
 }

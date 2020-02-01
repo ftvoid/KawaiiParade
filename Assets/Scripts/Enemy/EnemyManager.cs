@@ -13,6 +13,8 @@ public class EnemyManager : MonoBehaviour
 
     private List<Enemy> _enemies = new List<Enemy>();
 
+    private EnemyData _param;
+
     /// <summary>
     /// 敵生成
     /// </summary>
@@ -22,7 +24,16 @@ public class EnemyManager : MonoBehaviour
     {
         var enemy = Instantiate(_enemy, position, Quaternion.identity, _spawnTarget);
         _enemies.Add(enemy);
+
+        enemy.Initialize(_param);
+        enemy.GetComponent<EnemyMover>()?.Initialize(_param);
+
         return enemy;
+    }
+
+    private void Awake()
+    {
+        _param = Resources.Load<EnemyData>("ScriptableObjects/EnemyParameter");
     }
 
     #region テストコード
