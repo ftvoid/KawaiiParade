@@ -26,7 +26,8 @@ public class TitleManager : MonoBehaviour
                         fadeView.Fade(1);
                         Observable.Timer(TimeSpan.FromMilliseconds(1500))
                             .Subscribe(e =>
-                                SceneManager.LoadScene("Game")
+                                //SceneManager.LoadScene("Game")
+								SceneChanger.Instance.ChangeScene(SceneType.Synopsis)
                             );
                     })
         );
