@@ -2,16 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestSpawner : MonoBehaviour
+public class ItemView : MonoBehaviour
 {
-    [SerializeField]
-    private ItemData testData;
-
     // Start is called before the first frame update
     void Start()
     {
-        ItemManager itemManager = Object.FindObjectOfType<ItemManager>();
-        itemManager.spawnItem(testData, new Vector2(0, 1),0);
+        
     }
 
     // Update is called once per frame

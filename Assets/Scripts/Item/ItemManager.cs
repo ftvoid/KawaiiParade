@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ItemManager : SingletonMonoBehaviour<ItemManager>
 {
@@ -10,6 +11,7 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
 	/// <summary>
 	/// フィールドにあるアイテムリスト
 	/// </summary>
+	[SerializeField]
 	private List<Item> _itemList = new List<Item>();
 	public int ItemCount
 	{
@@ -19,6 +21,7 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
 	/// <summary>
 	/// アイテム獲得リスト
 	/// </summary>
+	[SerializeField]
 	private List<ItemData> _collectionList = new List<ItemData>();
 	public int CollectionCount
 	{
@@ -41,16 +44,35 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
 			if (item.IsCollection)
 			{
 				_itemList.Remove(item);
-				_collectionList.Add(item.ItemData);
+				var mapData = FieldInfomation.instance.SearchMapData(item.MapID);
+				mapData._isItem = false;
+				int num1 = item.MapID / 10;
+				int num2 = item.MapID % 10;
+				FieldInfomation.Instance.SetMapData(num1, num2, mapData);
+				var itemData = new ItemData();
+				itemData.points = item.ItemData.points;
+				_collectionList.Add(itemData);
+				Destroy(item.gameObject);
 			}
 		}
     }
 
-    public void spawnItem(ItemData data, Vector2 position)
+    public void spawnItem(ItemData data, Vector2 position,int mapId)
     {
         var item = Item.Create(_itemPrefab, data, position);
 		_itemList.Add(item);
     }
+
+	/// <summary>
+	/// アイテムを無くす
+	/// </summary>
+	public void LoseItem()
+	{
+		if (_collectionList.Count < 1) return;
+		int num = Random.Range(0, _collectionList.Count - 1);
+		_collectionList.RemoveAt(num);
+
+	}
 
 	/// <summary>
 	/// 獲得したアイテムの合計ポイントを返す

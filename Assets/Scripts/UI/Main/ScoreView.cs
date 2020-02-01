@@ -8,16 +8,23 @@ public class ScoreView : MonoBehaviour
 {
     [SerializeField] private TMP_Text m_score_Text;
     [SerializeField] private RectTransform rect;
+    private int score;
 
-    public void ScoreUpdate (float _score)
+    public void ScoreUpdate (int _score)
     {
-        m_score_Text.text = _score.ToString();
-        Sequence seq = DOTween.Sequence();
-        seq.Append(
-            rect.DOScale(new Vector3(1.3f, 1.3f), 0.1f)
+        DOTween.To(
+            () => score,
+            _ => score = _,
+            _score,
+            0.5f
         );
-        seq.Append(
-            rect.DOScale(new Vector3(1, 1), 0.7f)
-        );
+        
     }
+
+    private void Update ()
+    {
+        m_score_Text.text = score.ToString("00000000");
+    }
+
+
 }

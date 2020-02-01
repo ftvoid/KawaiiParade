@@ -36,4 +36,11 @@ public class FieldParameter : ScriptableObject
 	{
 		get { return _spawnEnemyValue; }
 	}
+
+	[SerializeField, Header("生成インターバル")]
+	private float _spawnIntarval = 5;
+	public float SpawnIntarval
+	{
+		get { return _spawnIntarval; }
+	}
 }
