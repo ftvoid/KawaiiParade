@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UniRx;
+using UniRx.Triggers;
 
 /// <summary>
 /// 敵の動き
@@ -23,6 +24,14 @@ public class EnemyMover : MonoBehaviour
 
     private Enemy _enemy;
     private Tween _motion;
+    private Transform _targetPlayer;
+
+    private enum State
+    {
+        None, RandomWalk, ChargeWalk, RandomWalkForce, Freeze,
+    }
+
+    [SerializeField] private State _state = State.None;
 
     private void Awake()
     {
@@ -30,13 +39,32 @@ public class EnemyMover : MonoBehaviour
 
         _enemy
             .OnCollidePlayerAsObservable()
-            .Subscribe(_ => PauseWalk());
+            .Subscribe(_ => OnCollidePlayer());
 
-        InvokeRandomWalk();
+        _enemy
+            .OnFindPlayerAsObjservable()
+            .Subscribe(OnFindPlayer);
+
+        _enemy
+            .OnMissPlayerAsObservable()
+            .Subscribe(OnMissPlayer);
+
+        this.UpdateAsObservable()
+            .Where(_ => _state == State.RandomWalk || _state == State.RandomWalkForce)
+            .Subscribe(_ => OnUpdateRandomWalk());
+
+        this.UpdateAsObservable()
+            .Where(_ => _state == State.ChargeWalk)
+            .Subscribe(_ => OnUpdateChargeWalk());
+
+        _state = State.RandomWalk;
     }
 
+    // ランダムウォーク実行
     private void InvokeRandomWalk()
     {
+        _state = State.RandomWalk;
+
         var nextPos = new Vector2(
             UnityEngine.Random.Range(_walkRange.xMin, _walkRange.xMax),
             UnityEngine.Random.Range(_walkRange.yMin, _walkRange.yMax));
@@ -49,22 +77,99 @@ public class EnemyMover : MonoBehaviour
             .OnComplete(InvokeRandomWalk);
     }
 
-    private void PauseWalk()
+    private void OnUpdateRandomWalk()
     {
+        //Debug.Log("ランダムウォーク");
+
         if ( _motion == null )
+            InvokeRandomWalk();
+    }
+
+    private void OnUpdateChargeWalk()
+    {
+        //Debug.Log("追尾実行");
+
+        if ( _motion != null )
+        {
+            _motion.Kill();
+            _motion = null;
+        }
+
+        Vector2 dir = (_targetPlayer.position - transform.position).normalized;
+        if ( Mathf.Approximately(dir.magnitude, 0) )
+            dir = Vector2.up;
+
+        transform.position += (Vector3)dir * _walkSpeed * Time.deltaTime;
+    }
+
+    // プレイヤーに接触した
+    private void OnCollidePlayer()
+    {
+        if ( _state == State.Freeze )
             return;
 
-        Debug.Log("徘徊を一時停止");
+        // 徘徊を一時停止
+        if ( _motion != null )
+        {
+            _motion.Kill();
+            _motion = null;
+        }
 
-        _motion.Pause();
+        _state = State.Freeze;
+        Debug.Log("徘徊を一時停止");
 
         Observable
             .Timer(TimeSpan.FromSeconds(_stopDuration))
-            .Subscribe(_ => 
+            .Subscribe(_ =>
             {
-                _motion.Play();
+                // 徘徊を再開
+                ForceRandomWalk();
                 Debug.Log("徘徊を再開");
             })
             .AddTo(this);
+    }
+
+    // 一定時間強制的にランダムウォーク
+    private void ForceRandomWalk()
+    {
+        _state = State.RandomWalkForce;
+
+        if ( _motion != null )
+            _motion.Play();
+        else
+            InvokeRandomWalk();
+
+        // 一定時間は追わないモードにする
+        Observable
+            .Timer(TimeSpan.FromSeconds(1))
+            .Where(_ => _state == State.RandomWalkForce)
+            .Subscribe(_ => _state = State.RandomWalk)
+            .AddTo(this);
+    }
+
+    // プレイヤーを発見した
+    private void OnFindPlayer(Transform target)
+    {
+        _targetPlayer = target;
+
+        //_motion?.Kill();
+
+        Debug.Log("プレイヤーを発見");
+        _state = State.ChargeWalk;
+
+        //InvokeChargeWalk();
+    }
+
+    // プレイヤーを見失った
+    private void OnMissPlayer(Transform target)
+    {
+        _targetPlayer = null;
+
+        //_motion?.Kill();
+
+        Debug.Log("プレイヤーを見失った");
+        _state = State.RandomWalk;
+
+        //InvokeRandomWalk();
     }
 }

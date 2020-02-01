@@ -13,4 +13,15 @@ public class GameState : SingletonMonoBehaviour<GameState>
     [SerializeField] private Rect _movableArea;
 
     public static Rect MovableArea => instance._movableArea;
+
+	/// <summary>
+	/// ゲームのスコア
+	/// </summary>
+	[SerializeField]
+	private int _score = 0;
+	public int Score
+	{
+		get { return _score; }
+		set { _score = value; }
+	}
 }

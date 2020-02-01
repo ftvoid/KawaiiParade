@@ -9,9 +9,13 @@ using UniRx;
 /// </summary>
 public class Enemy : MonoBehaviour
 {
-    private Subject<Unit> _onPause = new Subject<Unit>();
+    private Subject<Unit> _onCollidePlayer = new Subject<Unit>();
+    private Subject<Transform> _onFindPlayer = new Subject<Transform>();
+    private Subject<Transform> _onMissPlayer = new Subject<Transform>();
 
-    public IObservable<Unit> OnCollidePlayerAsObservable() => _onPause;
+    public IObservable<Unit> OnCollidePlayerAsObservable() => _onCollidePlayer;
+    public IObservable<Transform> OnFindPlayerAsObjservable() => _onFindPlayer;
+    public IObservable<Transform> OnMissPlayerAsObservable() => _onMissPlayer;
 
     private void Initialize(EnemyData data)
     {
@@ -24,11 +28,22 @@ public class Enemy : MonoBehaviour
         switch ( collision.tag )
         {
             case "Player":
-                _onPause.OnNext(Unit.Default);
+                _onCollidePlayer.OnNext(Unit.Default);
                 break;
 
             case "NearbyPlayer":
-                Debug.Log("NearbyPlayer");
+                _onFindPlayer.OnNext(collision.transform);
+                break;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        // TODO : リテラル使わないようにしたい…
+        switch ( collision.tag )
+        {
+            case "NearbyPlayer":
+                _onMissPlayer.OnNext(collision.transform);
                 break;
         }
     }
