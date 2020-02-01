@@ -3,39 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+
+[RequireComponent(typeof(FieldInfomation))]
 public class FieldManager : MonoBehaviour
 {
-	/// <summary>
-	/// フィールドサイズ（横）
-	/// </summary>
-	[SerializeField]
-	private int _fieldSizeHorizontal = 10;
-	/// <summary>
-	/// フィールドサイズ（縦）
-	/// </summary>
-	[SerializeField]
-	private int _fieldSizeVertical = 10;
-
-	/// <summary>
-	/// フィールドサイズの取得
-	/// </summary>
-	public Vector2 GetFieldSize
+	enum SpawnType
 	{
-		get { return new Vector2(_fieldSizeHorizontal, _fieldSizeVertical); }
+		NONE = -1,
+		Item,
+		Enemy
 	}
 
 	/// <summary>
-	/// アイテム生成数
+	/// フィールドデータ情報
 	/// </summary>
-	[SerializeField]
-	private int _spawnItemValue = 5;
+	private FieldInfomation _fieldInfo = null;
 
 	[SerializeField]
-	private GameObject _obje;
+	private GameObject _itemPrefab;
+
+	[SerializeField]
+	private GameObject _enemyPrefab;
 
 	[SerializeField]
 	private List<FieldInfomation> _field_datas = new List<FieldInfomation>();
 
+	/// <summary>
+	/// シングルトン
+	/// </summary>
 	public static FieldManager instance = null;
 
 	private void Awake()
@@ -55,8 +50,12 @@ public class FieldManager : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		CreateFieldDatas();
-		SpawnObjects(_spawnItemValue,0);
+		if (_fieldInfo == null) _fieldInfo = this.GetComponent<FieldInfomation>();
+		_fieldInfo.CreateMapDatas();
+		//Spawn　Item
+		SpawnObjects(_fieldInfo.Parameter.SpawnItemValue,SpawnType.Item);
+		//Spawn　Enemy
+		SpawnObjects(_fieldInfo.Parameter.SpawnItemValue, SpawnType.Enemy);
 	}
 
 	// Update is called once per frame
@@ -69,85 +68,57 @@ public class FieldManager : MonoBehaviour
 	/// オブジェクトの生成
 	/// </summary>
 	/// <param name="spawnValue"></param>
-	private void SpawnObjects(int spawnValue,int spawnType)
+	private void SpawnObjects(int spawnValue, SpawnType spawnType)
 	{
 		int spawnCount = 0;
 		List<int> ids = new List<int>();
 		while(spawnCount < spawnValue)
 		{
-			var row = Random.Range(0, _fieldSizeHorizontal);
-			var column = Random.Range(0, _fieldSizeVertical);
-			var data = GetFieldData(row, column);
+			//マップデータ取得
+			Vector2 size = _fieldInfo.GetFieldSize;
+			var row = Random.Range(0, (int)size.x);
+			var column = Random.Range(0, (int)size.y);
+			var data = _fieldInfo.GetMapData(row, column);
+			//すでにItemが配置されていたらcontinue
 			if (data._isItem) continue;
+			//配置間隔を広げるため
 			if (IsDiatance(ids, data._position, 4.0f)) continue;
-			data._isItem = true;
 			ids.Add(data._id);
-			SetFieldData(row, column, data);
-			Instantiate(_obje, data._position, Quaternion.identity, transform);
+			if(spawnType == SpawnType.Item)
+			{
+				//Item生成
+				SpawnItem(data, row, column);
+			}
+			else if(spawnType == SpawnType.Enemy)
+			{
+				//Enemy生成
+				SpawnEnemy(data);
+			}
+
 			spawnCount++;
 		}
 	}
 
 	/// <summary>
-	///  FieldDataの作成
+	/// アイテム生成
 	/// </summary>
-	private void CreateFieldDatas()
+	/// <param name="data"> マップデータ </param>
+	/// <param name="row"></param>
+	/// <param name="column"></param>
+	private void SpawnItem(MapData data,int row,int column)
 	{
-		_field_datas = new List<FieldInfomation>();
-		for (int i = 0; i < _fieldSizeHorizontal; i++)
-		{
-			var datas = new FieldInfomation();
-			int num = 0;
-			for (int j = 0; j < _fieldSizeVertical; j++)
-			{
-				var x = i - (_fieldSizeHorizontal / 2);
-				var y = j - (_fieldSizeVertical / 2);
-				FieldData data = new FieldData();
-				var pos = new Vector3(x, y, 0) + this.transform.position;
-				data._position = pos;
-				data._isItem = false;
-				data._id = num + i * 10;
-				datas._fieldDatas.Add(data);
-				num++;
-			}
-			_field_datas.Add(datas);
-		}
+		data._isItem = true;
+		_fieldInfo.SetMapData(row, column, data);
+		Instantiate(_itemPrefab, data._position, Quaternion.identity, transform);
 	}
 
 	/// <summary>
-	/// フィールドデータの取得
+	/// Enenmyの生成
 	/// </summary>
-	/// <param name="row"> ステージ横の値 </param>
-	/// <param name="column"> ステージ縦の値 </param>
-	/// <returns></returns>
-	public FieldData GetFieldData(int row,int column)
+	/// <param name="data"></param>
+	private void SpawnEnemy(MapData data)
 	{
-		return _field_datas[row]._fieldDatas[column];
-	}
-
-	/// <summary>
-	/// フィールドデータの設定
-	/// </summary>
-	/// <param name="row"> ステージ横の値 </param>
-	/// <param name="column"> ステージ縦の値 </param>
-	/// <returns></returns>
-	public void SetFieldData(int row, int column,FieldData data)
-	{
-		_field_datas[row]._fieldDatas[column] = data;
-	}
-
-	/// <summary>
-	/// IDでフィールドデータを取得
-	/// </summary>
-	/// <param name="id"></param>
-	/// <returns> IDが一致しなければnullを返す </returns>
-	public FieldData SearchFieldData(int id)
-	{
-		int num1 = id / 10;
-		int num2 = id % 10;
-		var data = _field_datas[num1]._fieldDatas[num2];
-		if (data._id == id) return data;
-		return null;
+		Instantiate(_enemyPrefab, data._position, Quaternion.identity, transform);
 	}
 
 	/// <summary>
@@ -163,7 +134,7 @@ public class FieldManager : MonoBehaviour
 		float dis;
 		foreach (int num in ids)
 		{
-			var d = SearchFieldData(num);
+			var d = _fieldInfo.SearchMapData(num);
 			dis = Vector2.Distance(pos, new Vector2(d._position.x,d._position.y));
 			if (dis <= range) return true;
 
