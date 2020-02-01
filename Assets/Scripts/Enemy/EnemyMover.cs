@@ -31,6 +31,14 @@ public class EnemyMover : MonoBehaviour
 
     [SerializeField] private State _state = State.None;
 
+    public void Initialize(EnemyData param)
+    {
+        _minWalkDistance = param._minWalkDistance;
+        _maxWalkDistance = param._maxWalkDistance;
+        _walkSpeed = param._walkSpeed;
+        _stopDuration = param._stopDuration;
+    }
+
     private void Awake()
     {
         _enemy = GetComponent<Enemy>();

@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour
     public IObservable<Transform> OnFindPlayerAsObjservable() => _onFindPlayer;
     public IObservable<Transform> OnMissPlayerAsObservable() => _onMissPlayer;
 
-    private void Initialize(EnemyData data)
+    public void Initialize(EnemyData param)
     {
         // TODO : 初期化
     }
