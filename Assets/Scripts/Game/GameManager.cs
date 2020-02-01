@@ -11,6 +11,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 {
 
     //後でenumにしたい
+    //0. チュートリアル
+    //1. カウントダウン
+    //2. ゲーム開始,FieldManagerをアクティブ
     public IntReactiveProperty StartFlag = new IntReactiveProperty(0);
     [SerializeField] private GameObject m_fieldManager;
 
@@ -59,8 +62,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             yield return null;
         }
 
+        StartGame();
         m_fieldManager.SetActive(true);
-
     }
 
 
