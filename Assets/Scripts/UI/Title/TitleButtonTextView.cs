@@ -15,7 +15,8 @@ public class TitleButtonTextView : MonoBehaviour
         Observable.Timer(TimeSpan.FromMilliseconds(1000))
             .Subscribe(_ =>
                 m_typewriter.Play(m_text, 20, null)
-            );
+            )
+            .AddTo(this);
     }
 
 }
