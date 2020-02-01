@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UniRx;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -22,9 +23,10 @@ public class PlayerScript : MonoBehaviour
     float timeCount = 0;
     private float inputX, inputY;
     int flamePerSecond = 60;
-    float nowStamina;
+    public float maxStamina = 100;
+    public FloatReactiveProperty nowStamina;
     bool isNaked  =true;
-    int playerLife;
+    public IntReactiveProperty playerLife;
     int playerLayer;
     //無敵用レイヤーです。
     int invincibleLayer;
@@ -36,10 +38,10 @@ public class PlayerScript : MonoBehaviour
         rigidbody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         paramater = Resources.Load<PlayerParamater>(Player_Paramater_PATH) as PlayerParamater;
-        nowStamina = paramater.StaminaMax;
+        nowStamina.Value = paramater.StaminaMax;
         playerLayer =this.gameObject.layer;
         invincibleLayer = 2;
-        playerLife = paramater.Life;
+        playerLife.Value = paramater.Life;
     }
 
     // Update is called once per frame
@@ -137,25 +139,25 @@ public class PlayerScript : MonoBehaviour
         {
             case PlayerStatus.Stop:
                 {
-                    if (nowStamina < paramater.StaminaMax)
+                    if (nowStamina.Value < paramater.StaminaMax)
                     {
-                        nowStamina += 2 * Time.deltaTime * paramater.StaminaMax / (paramater.DashTime);
+                        nowStamina.Value += 2 * Time.deltaTime * paramater.StaminaMax / (paramater.DashTime);
                     }
                     else
                     {
-                        nowStamina = 100;
+                        nowStamina.Value = maxStamina;
                     }
                 }
                 break;
             case PlayerStatus.Walk:
                 {
-                    if (nowStamina < paramater.StaminaMax)
+                    if (nowStamina.Value < paramater.StaminaMax)
                     {
-                        nowStamina += Time.deltaTime * paramater.StaminaMax / (paramater.DashTime);
+                        nowStamina.Value += Time.deltaTime * paramater.StaminaMax / (paramater.DashTime);
                     }
                     else
                     {
-                        nowStamina = 100;
+                        nowStamina.Value = maxStamina;
                     }
 
                 }
@@ -164,18 +166,18 @@ public class PlayerScript : MonoBehaviour
                 {
                     //DashTime:スタミナ最大から走り続けたと想定したときに、走り続けられる時間です。
                     //最大値100想定です。5秒で0です。
-                    nowStamina -= Time.deltaTime * paramater.StaminaMax / ( paramater.DashTime);
+                    nowStamina.Value -= Time.deltaTime * paramater.StaminaMax / ( paramater.DashTime);
                 }
                 break;
             default:
                 break;
         }
-        if (nowStamina <= 0)
+        if (nowStamina.Value <= 0)
         {
             cannnotDash = true;
-            nowStamina = 0;
+            nowStamina.Value = 0;
         }
-        else if (nowStamina >= 100)
+        else if (nowStamina.Value >= maxStamina)
         {
             cannnotDash = false;
         }
@@ -192,7 +194,7 @@ public class PlayerScript : MonoBehaviour
             if (isNaked && this.gameObject.layer == playerLayer )
             {
                 StartCoroutine(InvincibleTime());
-                playerLife -= 1;
+                playerLife.Value -= 1;
             }
         }
     }

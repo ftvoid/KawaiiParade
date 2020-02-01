@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
 
 /// <summary>
 /// ゲーム進行管理
@@ -20,6 +21,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         // 今は自動で開始
         StartGame();
     }
+
+
+
 
     private IEnumerator InvokeCountDown()
     {

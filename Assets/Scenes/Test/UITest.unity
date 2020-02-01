@@ -154,7 +154,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &299256828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,6 +205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 299256828}
+  player: {fileID: 0}
   view: {fileID: 1054306561}
 --- !u!114 &299256831
 MonoBehaviour:
@@ -247,6 +248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 299256828}
+  player: {fileID: 0}
   view: {fileID: 120123783}
 --- !u!114 &299256834
 MonoBehaviour:

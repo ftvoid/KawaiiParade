@@ -6,6 +6,7 @@ using UniRx;
 public class TutorialPresenter : MonoBehaviour
 {
     public MainUITest model;
+    public GameManager manager;
     public TutorialView view;
 
     void Start ()
@@ -13,19 +14,20 @@ public class TutorialPresenter : MonoBehaviour
         //model.lifePoint
         //    .SkipLatestValueOnSubscribe()
         //    .Subscribe(_ => view.LifeUpdate(_));
+
     }
 
-    private void Update ()
-    {
-        if(Input.GetKeyDown(KeyCode.W))
-        {
-            view.TutorialStart();
-        }
+    //private void Update ()
+    //{
+    //    if(Input.GetKeyDown(KeyCode.W))
+    //    {
+    //        view.TutorialStart();
+    //    }
 
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            view.TutorialEnd();
-        }
-    }
+    //    if(Input.GetKeyDown(KeyCode.E))
+    //    {
+    //        view.TutorialEnd();
+    //    }
+    //}
 
 }

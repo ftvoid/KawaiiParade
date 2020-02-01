@@ -398,12 +398,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bfb7aa04f87e0b41b1fe346f4a32b0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movableArea:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
+  _score:
+    value: 0
+  _remainTime:
+    value: 60
 --- !u!114 &1021442203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -669,6 +667,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 293dcb526c4eee54e80c5b1d369170e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxStamina: 100
+  nowStamina:
+    value: 0
+  playerLife:
+    value: 0
   text: {fileID: 1596899679}
 --- !u!212 &1289092272
 SpriteRenderer:
@@ -1017,6 +1020,36 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2019846616525367949, guid: ed8bbc87e9e62294a93217612e69ca17,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1289092271}
+    - target: {fileID: 2019846616525367950, guid: ed8bbc87e9e62294a93217612e69ca17,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1289092271}
+    - target: {fileID: 2019846616525367951, guid: ed8bbc87e9e62294a93217612e69ca17,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2019846616525367951, guid: ed8bbc87e9e62294a93217612e69ca17,
+        type: 3}
+      propertyPath: state
+      value: 
+      objectReference: {fileID: 1021442202}
+    - target: {fileID: 2019846616525367952, guid: ed8bbc87e9e62294a93217612e69ca17,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2019846616525367952, guid: ed8bbc87e9e62294a93217612e69ca17,
+        type: 3}
+      propertyPath: state
+      value: 
+      objectReference: {fileID: 1021442202}
     - target: {fileID: 2019846616589306991, guid: ed8bbc87e9e62294a93217612e69ca17,
         type: 3}
       propertyPath: m_AnchorMin.y
