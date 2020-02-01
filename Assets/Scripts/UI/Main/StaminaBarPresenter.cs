@@ -5,7 +5,6 @@ using UniRx;
 
 public class StaminaBarPresenter : MonoBehaviour
 {
-    public MainUITest model;
     public PlayerScript player;
     public StaminaBarView view;
 
@@ -17,10 +16,6 @@ public class StaminaBarPresenter : MonoBehaviour
             .SkipLatestValueOnSubscribe()
             .Subscribe(_ => view.BarUpdate(_));
 
-        //view.m_staminaMax = model.staminaMax;
-        //model.staminaNow
-        //    .SkipLatestValueOnSubscribe()
-        //    .Subscribe(_ => view.BarUpdate(_));
     }
 
 }

@@ -5,7 +5,6 @@ using UniRx;
 
 public class TimerPresenter : MonoBehaviour
 {
-    public MainUITest model;
     public GameState state;
     public TimerView view;
 
@@ -14,9 +13,5 @@ public class TimerPresenter : MonoBehaviour
         state.R_RemainTime
             .SkipLatestValueOnSubscribe()
             .Subscribe(_ => view.TimerUpdate(_));
-
-        //model.time
-        //.SkipLatestValueOnSubscribe()
-        //.Subscribe(_ => view.TimerUpdate(_));
     }
 }

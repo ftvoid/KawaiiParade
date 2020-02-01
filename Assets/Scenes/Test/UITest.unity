@@ -178,7 +178,7 @@ MonoBehaviour:
     value: 0
   lifePoint:
     value: 3
-  startCount: {fileID: 2082450729}
+  startCount: {fileID: 0}
 --- !u!4 &299256829
 Transform:
   m_ObjectHideFlags: 0
@@ -205,7 +205,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e390fad72382744eb5ef9947fd6df81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 299256828}
   player: {fileID: 0}
   view: {fileID: 1054306561}
 --- !u!114 &299256831
@@ -220,7 +219,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac7bf1e518bceaf40851cfd9fe463345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 299256828}
   state: {fileID: 0}
   view: {fileID: 820923600}
 --- !u!114 &299256832
@@ -235,7 +233,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e7eb4dfce37ab9429678a2ef25762cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 299256828}
   state: {fileID: 0}
   view: {fileID: 1028805597}
 --- !u!114 &299256833
@@ -250,7 +247,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 554fc4f6979744642af85c34dfedd4da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 299256828}
   player: {fileID: 0}
   view: {fileID: 120123783}
 --- !u!114 &299256834
@@ -463,18 +459,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea87e0386f1337d4fbbc7b774775a192, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2082450729 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2082450729, guid: ed8bbc87e9e62294a93217612e69ca17,
-    type: 3}
-  m_PrefabInstance: {fileID: 2019846616525367947}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d74610a320c21b418e3df9c7ff16705, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &2019846616525367947
