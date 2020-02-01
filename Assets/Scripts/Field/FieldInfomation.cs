@@ -4,7 +4,7 @@ using UnityEngine;
 
 //Inspecterで中身を確認したかったんよ
 [System.Serializable]
-public class FieldInfomation : MonoBehaviour
+public class FieldInfomation : SingletonMonoBehaviour<FieldInfomation>
 {
 	/// <summary>
 	/// フィールドサイズ（横）
@@ -40,8 +40,9 @@ public class FieldInfomation : MonoBehaviour
 	[SerializeField]
 	public List<MapDatas> _BigMapData = new List<MapDatas>();
 
-	private void Awake()
+	protected override void Awake()
 	{
+		base.Awake();
 		_param = Resources.Load<FieldParameter>("ScriptableObjects/FieldParameter");
 	}
 
