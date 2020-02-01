@@ -20,6 +20,8 @@ public class TutorialView : MonoBehaviour
 
     public void TutorialStart()
     {
+        SoundManager.PlaySound(SoundID.Click);
+
         Debug.Log("チュートリアルオン");
         Sequence startSeq = DOTween.Sequence();
         startSeq.Append(
@@ -54,6 +56,8 @@ public class TutorialView : MonoBehaviour
 
     public void TutorialEnd ()
     {
+        SoundManager.PlaySound(SoundID.Click);
+
         seqLoop.Kill();
         Sequence textSeq = DOTween.Sequence();
         textSeq.Append(
