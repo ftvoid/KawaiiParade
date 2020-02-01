@@ -28,6 +28,9 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
 		get { return _collectionList.Count; }
 	}
 
+    //アイテムUI
+    [SerializeField] private ItemPresenter _itemPresenter;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,7 +46,7 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
 		{
 			if (item.IsCollection)
 			{
-				//スコア加算
+                //スコア加算
 				GameState.instance.Score += item.ItemData.points;
 				_itemList.Remove(item);
 				var mapData = FieldInfomation.instance.SearchMapData(item.MapID);
@@ -57,6 +60,9 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
 				itemData.sprite = item.ItemData.sprite;
 				_collectionList.Add(itemData);
 				Destroy(item.gameObject);
+
+                //UI更新
+                _itemPresenter.ItemUpdate(true, itemData.points);
 			}
 		}
     }
@@ -86,9 +92,13 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
 		if (_collectionList.Count < 1) return;
 		//int num = Random.Range(0, _collectionList.Count - 1);
 		int num = _collectionList.Count - 1;
-		_collectionList.RemoveAt(num);
 
-	}
+        //UI更新
+        _itemPresenter.ItemUpdate(false, _collectionList[num].points);
+
+        _collectionList.RemoveAt(num);
+        
+    }
 
 	/// <summary>
 	/// 獲得したアイテムの合計ポイントを返す

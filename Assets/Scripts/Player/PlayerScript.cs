@@ -52,7 +52,6 @@ public class PlayerScript : MonoBehaviour
             StopTimeCount();
         }
         GetInput();
-        Debug.Log(playerLife);
         text.text = nowStamina.ToString() ;
     }
 

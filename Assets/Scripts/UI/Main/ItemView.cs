@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ItemView : MonoBehaviour
 {
 
-    public List<Image> m_itemCell = new List<Image>();
+    public TMP_Text[] texts;
 
 
-    public void ItemUpdate()
+    public void ItemUpdate(int _i, int _num)
     {
-
+        texts[_i].text = _num.ToString();
     }
 }

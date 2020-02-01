@@ -23,9 +23,9 @@ public class TutorialView : MonoBehaviour
         Debug.Log("チュートリアルオン");
         Sequence startSeq = DOTween.Sequence();
         startSeq.Append(
-            m_panel_CanvasGroup.DOFade(1, 0.5f)
+            m_panel_CanvasGroup.DOFade(1, 0.3f)
         );
-        startSeq.SetDelay(1);
+        startSeq.SetDelay(0.3f);
         startSeq.Append(
             m_rect.DOScaleX(1, 0.3f).SetEase(Ease.OutExpo)
         );
@@ -37,13 +37,13 @@ public class TutorialView : MonoBehaviour
             m_rect.DOScaleY(1, 0.3f).SetEase(Ease.OutExpo)
         );
 
-        Observable.Timer(TimeSpan.FromMilliseconds(3000))
+        Observable.Timer(TimeSpan.FromMilliseconds(1500))
             .Subscribe(_ =>
-                m_typewriter.Play(m_text, 25, null)
+                m_typewriter.Play(m_text, 30, null)
             )
             .AddTo(this);
 
-        Observable.Timer(TimeSpan.FromMilliseconds(4500))
+        Observable.Timer(TimeSpan.FromMilliseconds(2000))
             .Subscribe(_ => {
                 TextFlash();
                 ready = true;
@@ -66,9 +66,8 @@ public class TutorialView : MonoBehaviour
         textSeq.Join(
             m_rect.DOScaleY(0, 0.3f)
         );
-        textSeq.SetDelay(1);
         textSeq.Append(
-            m_panel_CanvasGroup.DOFade(0, 0.5f)
+            m_panel_CanvasGroup.DOFade(0, 0.3f)
         );
         flag.Value = true;
     }

@@ -20,14 +20,14 @@ public class StartCountView : MonoBehaviour
 
     IEnumerator CountDown ()
     {
-        yield return new WaitForSeconds(2);
-        TextFlash();
-        m_text.text = "5";
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1);
+        //TextFlash();
+        //m_text.text = "5";
+        //yield return new WaitForSeconds(0.5f);
 
         TextFlash();
         m_text.text = "4";
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         TextFlash();
         m_text.text = "3";
@@ -35,11 +35,11 @@ public class StartCountView : MonoBehaviour
 
         TextFlash();
         m_text.text = "2";
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
 
         TextFlash();
         m_text.text = "1";
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
 
         TextFlash();
         m_text.text = "START";
@@ -50,7 +50,6 @@ public class StartCountView : MonoBehaviour
 
     void TextFlash()
     {
-        Debug.Log("flash");
         Sequence seq = DOTween.Sequence();
         seq.Append(
              rect.DOScale(new Vector3(1.3f, 1.3f), 0.1f)
