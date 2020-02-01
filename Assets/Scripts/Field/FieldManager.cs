@@ -190,7 +190,9 @@ public class FieldManager : MonoBehaviour
 				var x = i /*- (_fieldInfo.Parameter.FieldSizeHorizontal / 2)*/;
 				var y = j - (_fieldInfo.Parameter.FieldSizeVertical / 2);
 				var pos = new Vector3(x, y, 0) + this.transform.position;
-				Instantiate(_testobj, pos, Quaternion.identity, transform);
+				var obj =  Instantiate(_testobj, pos, Quaternion.identity);
+				var item = obj.GetComponent<Item>();
+				item.MapID = _fieldInfo.GetMapData(i, j)._id;
 			}
 		}
 	}

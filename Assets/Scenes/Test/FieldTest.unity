@@ -185,6 +185,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59441683d769e15428efc46697f602eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _minMapID: 0
+  _maxMapID: 0
   _BigMapData: []
 --- !u!114 &201675099
 MonoBehaviour:

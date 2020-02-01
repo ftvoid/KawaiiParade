@@ -16,10 +16,12 @@ public class Item : MonoBehaviour
 		get { return _data; }
 	}
 
+	[SerializeField]
+	private int _mapId = 0;
 	public int MapID
 	{
-		get;
-		set;
+		get { return _mapId; }
+		set { _mapId = value; }
 	}
 
 	/// <summary>
