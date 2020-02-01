@@ -22,9 +22,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         StartGame();
     }
 
-
-
-
     private IEnumerator InvokeCountDown()
     {
         while ( GameState.Instance.RemainTime > 0 )
