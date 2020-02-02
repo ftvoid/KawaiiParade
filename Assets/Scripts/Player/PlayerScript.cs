@@ -44,7 +44,7 @@ public class PlayerScript : MonoBehaviour
         clothesRenderer = Clothes.GetComponent<SpriteRenderer>();
         paramater = Resources.Load<PlayerParamater>(Player_Paramater_PATH) as PlayerParamater;
         nowStamina.Value = paramater.StaminaMax;
-        playerLayer =this.gameObject.layer;
+        playerLayer = this.gameObject.layer;
         invincibleLayer = 2;
         playerLife.Value = paramater.Life;
     }
@@ -64,7 +64,7 @@ public class PlayerScript : MonoBehaviour
             StopTimeCount();
         }
         GetInput();
-        text.text = nowStamina.ToString() ;
+        text.text = nowStamina.ToString();
         PlayerStaminaManager();
     }
 
@@ -107,7 +107,7 @@ public class PlayerScript : MonoBehaviour
     {
         //経過時間分を加算します。
         timeCount += Time.deltaTime;
-        if (timeCount > paramater.StopTime )
+        if (timeCount > paramater.StopTime)
         {
             isStop = false;
             timeCount = 0;
@@ -178,7 +178,7 @@ public class PlayerScript : MonoBehaviour
                 {
                     //DashTime:スタミナ最大から走り続けたと想定したときに、走り続けられる時間です。
                     //最大値100想定です。5秒で0です。
-                    nowStamina.Value -= Time.deltaTime * paramater.StaminaMax / ( paramater.DashTime);
+                    nowStamina.Value -= Time.deltaTime * paramater.StaminaMax / (paramater.DashTime);
                 }
                 break;
             default:
@@ -197,7 +197,7 @@ public class PlayerScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Enemy" && this.gameObject.tag == "Player" )
+        if (other.gameObject.tag == "Enemy" && this.gameObject.tag == "Player")
         {
             var spriteRenderer = other.transform.GetChild(0).GetComponent<SpriteRenderer>();
             if (ItemManager.Instance.CollectionCount != 0)
@@ -205,12 +205,11 @@ public class PlayerScript : MonoBehaviour
                 spriteRenderer.sprite = ItemManager.Instance.GetItemData().sprite;
                 spriteRenderer.color = ItemManager.Instance.GetItemData().color;
             }
-            isDamage = true;
             //服を失います。
             ItemManager.Instance.LoseItem();
 
             Debug.Log("Enemy collided with player");
-            if (isNaked)
+            if (isNaked && !isDamage)
             {
                 isStop = true;
                 StartCoroutine(InvincibleTime());
@@ -246,6 +245,7 @@ public class PlayerScript : MonoBehaviour
 
     public IEnumerator InvincibleTime()
     {
+        isDamage = true;
         for (int i = 0; i < paramater.InvincibleTime * 10; i++)
         {
             for (int j = 0; j < spriteRenderer.Length; j++)
