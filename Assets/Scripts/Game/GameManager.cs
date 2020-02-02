@@ -19,6 +19,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     [SerializeField] private Behaviour[] _initialLockComponents;
 
+    private bool _isGameStarted = false;
+
     public void StartGame()
     {
         Debug.Log("ゲーム開始！");
@@ -47,12 +49,26 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 if(GameState.Instance.R_Score.Value >= 5000 )
                 {
                     Debug.Log("ハッピーEND");
+                    SceneChanger.Instance.ChangeScene(SceneType.Ending, "Happy");
                 }
                 else
                 {
                     Debug.Log("おわかれEND");
+                    SceneChanger.Instance.ChangeScene(SceneType.Ending, "Goodbye");
                 }
             });
+
+        var player = FindObjectOfType<PlayerScript>();
+        if ( player != null )
+        {
+            player.playerLife
+                .Where(_ => _isGameStarted)
+                .Where(x => x <= 0)
+                .Subscribe(_ => {
+                    Debug.Log("おじさんEND");
+                    SceneChanger.Instance.ChangeScene(SceneType.Ending, "Gameover");
+                });
+        }
 
         // 今は自動で開始
         //StartGame();
@@ -99,5 +115,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
             component.enabled = true;
         }
+
+        _isGameStarted = true;
     }
 }

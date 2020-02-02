@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Result.unity
     guid: 8ea64c8e1db56024eb991552438a1eba
+  - enabled: 1
+    path: Assets/Scenes/Ending.unity
+    guid: 746e0c57dbd3341dd84faf7c99f0d108
   - enabled: 0
     path: Assets/Scenes/Preload.unity
     guid: 611aa12b765df41248f7ce75b14ea047

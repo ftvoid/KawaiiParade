@@ -9,11 +9,22 @@ public enum SceneType
 	Title,			//タイトル
 	Synopsis,		//あらすじ
 	GamePlay,		//プレイシーン
-	Result			//リザルト
+	Result,  		//リザルト
+    Ending,         //エンディング
 }
 
 public class SceneChanger : SingletonMonoBehaviour<SceneChanger>
 {
+    [RuntimeInitializeOnLoadMethod]
+    private static void CreateInstance()
+    {
+        var obj = new GameObject("SceneChanger");
+        obj.AddComponent<SceneChanger>();
+        DontDestroyOnLoad(obj);
+    }
+
+    public object Param { get; private set; }
+
 	protected override void Awake()
 	{
 		base.Awake();
@@ -31,12 +42,14 @@ public class SceneChanger : SingletonMonoBehaviour<SceneChanger>
 
 	}
 
-	/// <summary>
-	/// シーンの遷移
-	/// </summary>
-	/// <param name="type"></param>
-	public void ChangeScene(SceneType type)
-	{
-		SceneManager.LoadScene((int)type);
-	}
+    /// <summary>
+    /// シーンの遷移
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="param"></param>
+    public void ChangeScene(SceneType type, object param = null)
+    {
+        Param = param;
+        SceneManager.LoadScene((int)type);
+    }
 }
