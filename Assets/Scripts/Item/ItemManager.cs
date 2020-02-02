@@ -59,7 +59,7 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
 				itemData.color = item.ItemDatas.color;
 				itemData.sprite = item.ItemDatas.sprite;
 				_collectionList.Add(itemData);
-				Destroy(item.gameObject);
+				Destroy(item.gameObject, 0.1f);
 
                 //UI更新
                 _itemPresenter.ItemUpdate(true, itemData.points);

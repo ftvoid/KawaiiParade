@@ -31,7 +31,7 @@ public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : Single
                     }
                 }
 
-                Debug.LogWarning(string.Format("{0} is not found", type.Name));
+                //Debug.LogWarning(string.Format("{0} is not found", type.Name));
             }
 
             return instance;

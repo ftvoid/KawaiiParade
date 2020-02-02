@@ -88,7 +88,7 @@ public class PlayerScript : MonoBehaviour
             {
                 playerCostume = PlayerCostume.Normal;
             }
-            Debug.Log(playerCostume);
+            //Debug.Log(playerCostume);
         }
         GetInput();
         text.text = nowStamina.ToString();
