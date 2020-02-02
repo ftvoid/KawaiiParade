@@ -6,6 +6,7 @@ using UniRx.Triggers;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(FieldInfomation))]
+[RequireComponent(typeof(SetItemIncidence))]
 public class FieldManager : MonoBehaviour
 {
 	enum SpawnType
@@ -88,7 +89,7 @@ public class FieldManager : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (ItemManager.Instance.ItemCount <= _fieldInfo.Parameter.MinExsitItemValue || _spawnTimer >= _fieldInfo.Parameter.SpawnIntarval  /*ItemManager.Instance.ItemCount < _fieldInfo.Parameter.SpawnItemValue*/)
+		if ((ItemManager.Instance.ItemCount <= _fieldInfo.Parameter.MinExsitItemValue || _spawnTimer >= _fieldInfo.Parameter.SpawnIntarval) && GameManager.Instance.StartFlag.Value < 3)
 		{
 			List<int> ids = new List<int>();
 			//マップデータ取得
@@ -160,9 +161,10 @@ public class FieldManager : MonoBehaviour
 	{
 		data._isItem = true;
 		_fieldInfo.SetMapData(row, column, data);
-		//Instantiate(_itemPrefab, data._position, Quaternion.identity, transform);
-		int num = Random.Range(0, _itemDatas.dataList.Count);
-		ItemManager.Instance.spawnItem(_itemDatas.dataList[num], data._position, data._id);
+		var item = SetItemIncidence.Instance.GetRandomItemData();
+		int num = Random.Range(0, _itemDatas.ColorList.Count);
+		item.color = _itemDatas.ColorList[num];
+		ItemManager.Instance.spawnItem(item, data._position, data._id);
 	}
 
 	/// <summary>

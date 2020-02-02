@@ -15,51 +15,30 @@ MonoBehaviour:
   dataList:
   - sprite: {fileID: 21300000, guid: 52e080d68d839b14d96b52d97ee528c0, type: 3}
     collisionRadius: 0.3
+    points: 3000
+    color: {r: 1, g: 1, b: 1, a: 1}
+    speedReta: 0
+    incidence: 10
+  - sprite: {fileID: 21300000, guid: a396ac41f48f6384c86a943094222f7a, type: 3}
+    collisionRadius: 0.4
+    points: 2000
+    color: {r: 1, g: 1, b: 1, a: 1}
+    speedReta: 0
+    incidence: 30
+  - sprite: {fileID: 21300000, guid: 7c7975fcc561aaf4ab494aec904c1558, type: 3}
+    collisionRadius: 0.4
     points: 1000
     color: {r: 1, g: 1, b: 1, a: 1}
     speedReta: 0
-  - sprite: {fileID: 21300000, guid: 52e080d68d839b14d96b52d97ee528c0, type: 3}
-    collisionRadius: 0.4
-    points: 1000
-    color: {r: 0.56961846, g: 1, b: 0, a: 1}
-    speedReta: 0
-  - sprite: {fileID: 21300000, guid: 52e080d68d839b14d96b52d97ee528c0, type: 3}
-    collisionRadius: 0.4
-    points: 1000
-    color: {r: 1, g: 0, b: 0, a: 1}
-    speedReta: 0
-  - sprite: {fileID: 21300000, guid: a396ac41f48f6384c86a943094222f7a, type: 3}
-    collisionRadius: 0.4
-    points: 2000
-    color: {r: 0.59061176, g: 0.589, b: 1, a: 1}
-    speedReta: 0
-  - sprite: {fileID: 21300000, guid: a396ac41f48f6384c86a943094222f7a, type: 3}
-    collisionRadius: 0.4
-    points: 2000
-    color: {r: 0, g: 1, b: 0.77932477, a: 1}
-    speedReta: 0
-  - sprite: {fileID: 21300000, guid: a396ac41f48f6384c86a943094222f7a, type: 3}
-    collisionRadius: 0.4
-    points: 2000
-    color: {r: 0.8576476, g: 0.55602527, b: 0.990566, a: 1}
-    speedReta: 0
-  - sprite: {fileID: 21300000, guid: 7c7975fcc561aaf4ab494aec904c1558, type: 3}
-    collisionRadius: 0.4
-    points: 3000
-    color: {r: 0.9811321, g: 0.8984455, b: 0.67105734, a: 1}
-    speedReta: 0
-  - sprite: {fileID: 21300000, guid: 7c7975fcc561aaf4ab494aec904c1558, type: 3}
-    collisionRadius: 0.4
-    points: 3000
-    color: {r: 1, g: 0.603, b: 0.84794825, a: 1}
-    speedReta: 0
-  - sprite: {fileID: 21300000, guid: 7c7975fcc561aaf4ab494aec904c1558, type: 3}
-    collisionRadius: 0.4
-    points: 3000
-    color: {r: 0.25, g: 1, b: 0, a: 1}
-    speedReta: 0
-  - sprite: {fileID: 21300000, guid: 7c7975fcc561aaf4ab494aec904c1558, type: 3}
-    collisionRadius: 0.4
-    points: 3000
-    color: {r: 1, g: 0.986959, b: 0.33490568, a: 1}
-    speedReta: 0
+    incidence: 60
+  colorList:
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 0.48576266, g: 1, b: 0.2971698, a: 1}
+  - {r: 0, g: 1, b: 0.86911154, a: 1}
+  - {r: 1, g: 0.98480475, b: 0, a: 1}
+  - {r: 0.990566, g: 0, b: 0.709046, a: 1}
+  - {r: 1, g: 0.53900003, b: 0.53900003, a: 1}
+  - {r: 0.9089084, g: 0.5582948, b: 0.9622642, a: 1}
+  - {r: 0.46321192, g: 0.397, b: 1, a: 1}
+  - {r: 1, g: 0.6236166, b: 0, a: 1}
+  - {r: 0.028858097, g: 0.5471698, b: 0.002580996, a: 1}
