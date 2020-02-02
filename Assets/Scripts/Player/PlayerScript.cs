@@ -46,6 +46,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField]
     ItemPresenter itemPresenter;
     SpriteRenderer clothesRenderer;    // Start is called before the first frame update
+    [SerializeField] CameraShake shake;
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
@@ -253,6 +254,7 @@ public class PlayerScript : MonoBehaviour
                 }
 
             }
+            shake.Shake(0.25f, 0.1f);
         }
         if (other.gameObject.tag == "Item")
         {
