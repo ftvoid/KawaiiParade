@@ -111,3 +111,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0285542b1fb5410a88bd362282676b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mapId: 0
+  hitEffect: {fileID: 8737586248002926879, guid: 0fe4c7c46ddd4c9428db19ff3d4c1ba5,
+    type: 3}

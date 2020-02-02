@@ -34,6 +34,6 @@ public class UtageStarter : MonoBehaviour
         }
 
         // シナリオ再生後はクレジットシーンへ遷移
-        SceneChanger.Instance.ChangeScene(SceneType.Credit);
+        SceneChanger.Instance.ChangeScene(SceneType.Credit, senario);
     }
 }
