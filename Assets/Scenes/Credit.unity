@@ -1358,7 +1358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _creditText: {fileID: 1501510015}
-  _scrollSpeed: 85
+  _scrollSpeed: 100
 --- !u!1 &520662834
 GameObject:
   m_ObjectHideFlags: 0
