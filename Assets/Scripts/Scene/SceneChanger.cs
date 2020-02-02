@@ -14,6 +14,14 @@ public enum SceneType
 
 public class SceneChanger : SingletonMonoBehaviour<SceneChanger>
 {
+    [RuntimeInitializeOnLoadMethod]
+    private static void CreateInstance()
+    {
+        var obj = new GameObject("SceneChanger");
+        obj.AddComponent<SceneChanger>();
+        DontDestroyOnLoad(obj);
+    }
+
 	protected override void Awake()
 	{
 		base.Awake();
