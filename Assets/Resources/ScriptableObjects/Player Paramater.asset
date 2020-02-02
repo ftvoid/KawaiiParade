@@ -15,7 +15,7 @@ MonoBehaviour:
   speed: 5
   staminaMax: 100
   life: 3
-  stopTime: 0.5
+  stopTime: 0.2
   dashSpeed: 10
   dashTime: 5
-  invincibleTime: 3
+  invincibleTime: 1
