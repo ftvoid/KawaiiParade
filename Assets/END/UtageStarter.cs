@@ -19,7 +19,9 @@ public class UtageStarter : MonoBehaviour
         IEnumerator CoTalk(){
 
         // ここでジャンプするシナリオラベルを選択
-        Engine.JumpScenario("Happy");
+        var param = SceneChanger.Instance.Param;
+        var senario = param != null ? (string)param : "Happy";
+        Engine.JumpScenario(senario);
 
         // 「宴」のシナリオ終了待ち
         while(!Engine.IsEndScenario)
@@ -28,5 +30,6 @@ public class UtageStarter : MonoBehaviour
         }
 
         // シナリオ再生後はタイトルシーンへ遷移
+        SceneChanger.Instance.ChangeScene(SceneType.Title);
     }
 }
