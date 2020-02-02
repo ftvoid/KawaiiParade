@@ -193,13 +193,14 @@ public class FieldManager : MonoBehaviour
 			var data = _fieldInfo.GetMapData(row, column);
 			spawnPos = data._position;
 			float dis = Vector2.Distance(playerPos, data._position);
-			if (dis > maxRange)
+			if (dis > maxRange && !flag)
 			{
 				maxRange = dis;
 				//_testNextSpawnPoint += 20000;
 				//Instantiate(_testobj, spawnPos, Quaternion.identity);
 				EnemyManager.Instance.SpawnEnemy(spawnPos);
 				flag = true;
+				break;
 			}
 		}
 		//もし10回回しても生成されなければ最後に保持した座標で生成
