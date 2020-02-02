@@ -1575,7 +1575,7 @@ MonoBehaviour:
   m_text_CanvasGroup: {fileID: 1373158694}
   m_rect: {fileID: 1217959241}
   image: {fileID: 1217959242}
-  tutorialSprite2: {fileID: 21300000, guid: a682f85369bfa0c4ca00166593f3b1c0, type: 3}
+  tutorialSprite2: {fileID: 21300000, guid: 18fa34e15b1d5744f9e76b3027333546, type: 3}
   m_typewriter: {fileID: 1373158693}
   flag:
     value: 0
