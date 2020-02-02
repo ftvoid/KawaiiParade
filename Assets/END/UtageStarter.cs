@@ -26,6 +26,10 @@ public class UtageStarter : MonoBehaviour
         // 「宴」のシナリオ終了待ち
         while(!Engine.IsEndScenario)
         {
+            // メッセージ送り
+            if ( Input.GetButtonDown("Dash") )
+                Engine.Page.InputSendMessage();
+
             yield return null;
         }
 
