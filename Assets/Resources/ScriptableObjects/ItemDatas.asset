@@ -13,43 +13,53 @@ MonoBehaviour:
   m_Name: ItemDatas
   m_EditorClassIdentifier: 
   dataList:
-  - sprite: {fileID: 21300000, guid: 3f38293c968fb8d45a2f533e22027943, type: 3}
+  - sprite: {fileID: 21300000, guid: 52e080d68d839b14d96b52d97ee528c0, type: 3}
     collisionRadius: 0.3
     points: 1000
     color: {r: 1, g: 1, b: 1, a: 1}
-  - sprite: {fileID: 21300000, guid: 3f38293c968fb8d45a2f533e22027943, type: 3}
+    speedReta: 0
+  - sprite: {fileID: 21300000, guid: 52e080d68d839b14d96b52d97ee528c0, type: 3}
     collisionRadius: 0.4
     points: 1000
     color: {r: 0.56961846, g: 1, b: 0, a: 1}
-  - sprite: {fileID: 21300000, guid: 3f38293c968fb8d45a2f533e22027943, type: 3}
+    speedReta: 0
+  - sprite: {fileID: 21300000, guid: 52e080d68d839b14d96b52d97ee528c0, type: 3}
     collisionRadius: 0.4
     points: 1000
     color: {r: 1, g: 0, b: 0, a: 1}
-  - sprite: {fileID: 21300000, guid: b2782d704b0dff14b812295db1090761, type: 3}
+    speedReta: 0
+  - sprite: {fileID: 21300000, guid: a396ac41f48f6384c86a943094222f7a, type: 3}
     collisionRadius: 0.4
     points: 2000
-    color: {r: 0.003680706, g: 0, b: 1, a: 1}
-  - sprite: {fileID: 21300000, guid: b2782d704b0dff14b812295db1090761, type: 3}
+    color: {r: 0.59061176, g: 0.589, b: 1, a: 1}
+    speedReta: 0
+  - sprite: {fileID: 21300000, guid: a396ac41f48f6384c86a943094222f7a, type: 3}
     collisionRadius: 0.4
     points: 2000
     color: {r: 0, g: 1, b: 0.77932477, a: 1}
-  - sprite: {fileID: 21300000, guid: b2782d704b0dff14b812295db1090761, type: 3}
+    speedReta: 0
+  - sprite: {fileID: 21300000, guid: a396ac41f48f6384c86a943094222f7a, type: 3}
     collisionRadius: 0.4
     points: 2000
-    color: {r: 0.69332695, g: 0, b: 1, a: 1}
-  - sprite: {fileID: 21300000, guid: 80a44923b6d25864b8724b71a9b0093e, type: 3}
+    color: {r: 0.8576476, g: 0.55602527, b: 0.990566, a: 1}
+    speedReta: 0
+  - sprite: {fileID: 21300000, guid: 7c7975fcc561aaf4ab494aec904c1558, type: 3}
     collisionRadius: 0.4
     points: 3000
-    color: {r: 1, g: 0.7334806, b: 0, a: 1}
-  - sprite: {fileID: 21300000, guid: 80a44923b6d25864b8724b71a9b0093e, type: 3}
+    color: {r: 0.9811321, g: 0.8984455, b: 0.67105734, a: 1}
+    speedReta: 0
+  - sprite: {fileID: 21300000, guid: 7c7975fcc561aaf4ab494aec904c1558, type: 3}
     collisionRadius: 0.4
     points: 3000
     color: {r: 1, g: 0.603, b: 0.84794825, a: 1}
-  - sprite: {fileID: 21300000, guid: 80a44923b6d25864b8724b71a9b0093e, type: 3}
+    speedReta: 0
+  - sprite: {fileID: 21300000, guid: 7c7975fcc561aaf4ab494aec904c1558, type: 3}
     collisionRadius: 0.4
     points: 3000
-    color: {r: 0.2225257, g: 0.7169812, b: 0.057493784, a: 1}
-  - sprite: {fileID: 21300000, guid: 80a44923b6d25864b8724b71a9b0093e, type: 3}
+    color: {r: 0.25, g: 1, b: 0, a: 1}
+    speedReta: 0
+  - sprite: {fileID: 21300000, guid: 7c7975fcc561aaf4ab494aec904c1558, type: 3}
     collisionRadius: 0.4
     points: 3000
-    color: {r: 1, g: 0.98165107, b: 0, a: 1}
+    color: {r: 1, g: 0.986959, b: 0.33490568, a: 1}
+    speedReta: 0
