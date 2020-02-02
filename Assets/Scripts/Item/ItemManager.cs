@@ -55,9 +55,9 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
 				int num2 = item.MapID % 10;
 				FieldInfomation.Instance.SetMapData(num1, num2, mapData);
 				var itemData = new ItemData();
-				itemData.points = item.ItemData.points;
-				itemData.color = item.ItemData.color;
-				itemData.sprite = item.ItemData.sprite;
+				itemData.points = item.ItemDatas.points;
+				itemData.color = item.ItemDatas.color;
+				itemData.sprite = item.ItemDatas.sprite;
 				_collectionList.Add(itemData);
 				Destroy(item.gameObject);
 

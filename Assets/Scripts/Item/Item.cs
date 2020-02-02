@@ -11,7 +11,7 @@ public class Item : MonoBehaviour
     private CircleCollider2D _collider;
 
 	private ItemData _data;
-	public ItemData ItemData
+	public ItemData ItemDatas
 	{
 		get { return _data; }
 	}
@@ -69,7 +69,7 @@ public class Item : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             // TODO: insert into player inventory
-            Debug.Log("Item collided with player");
+            //Debug.Log("Item collided with player");
 			_isCollection = true;
             SoundManager.PlaySound(SoundID.ItemGet);
         }

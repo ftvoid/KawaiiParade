@@ -13,7 +13,7 @@ using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "ItemDatas", menuName = "ScriptableObjects/ItemDatas", order = 1)]
 public class ItemDatas : ScriptableObject
-{
+{ 
 	public List<ItemData> dataList = new List<ItemData>();
 }
 

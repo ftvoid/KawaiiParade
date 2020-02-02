@@ -14,6 +14,13 @@ public class PlayerScript : MonoBehaviour
         Dash,
     }
     PlayerStatus playerStatus = PlayerStatus.Stop;
+    enum PlayerCostume
+    {
+        Normal,
+        Costume01,
+        Costume02,
+    }
+    PlayerCostume playerCostume = PlayerCostume.Normal;
     new Rigidbody2D rigidbody;
     SpriteRenderer[] spriteRenderer;
     private const string Player_Paramater_PATH = "ScriptableObjects/Player Paramater";
@@ -62,6 +69,23 @@ public class PlayerScript : MonoBehaviour
         if (isStop)
         {
             StopTimeCount();
+        }
+        if (ItemManager.Instance.CollectionCount > 0)
+        {
+            var spriteName = ItemManager.Instance.GetItemData().sprite.name;
+            if (spriteName == "Costume01_Gray")
+            {
+                playerCostume = PlayerCostume.Costume01;
+            }
+            else if (spriteName == "Costume02_Gray")
+            {
+                playerCostume = PlayerCostume.Costume02;
+            }
+            else
+            {
+                playerCostume = PlayerCostume.Normal;
+            }
+            Debug.Log(playerCostume);
         }
         GetInput();
         text.text = nowStamina.ToString();
@@ -129,12 +153,38 @@ public class PlayerScript : MonoBehaviour
                 break;
             case PlayerStatus.Walk:
                 {
-                    rigidbody.MovePosition(this.transform.position += moveVectorBeforeCorrection * paramater.Speed * Time.deltaTime);
+                    switch (playerCostume)
+                    {
+                        case PlayerCostume.Normal:
+                            rigidbody.MovePosition(this.transform.position += moveVectorBeforeCorrection * paramater.Speed * Time.deltaTime);
+                            break;
+                        case PlayerCostume.Costume01:
+                            rigidbody.MovePosition(this.transform.position += moveVectorBeforeCorrection * paramater.Speed * paramater.Costume01_speedAdjust * Time.deltaTime);
+                            break;
+                        case PlayerCostume.Costume02:
+                            rigidbody.MovePosition(this.transform.position += moveVectorBeforeCorrection * paramater.Speed * paramater.Costume02_speedAdjust * Time.deltaTime);
+                            break;
+                        default:
+                            break;
+                    }
                 }
                 break;
             case PlayerStatus.Dash:
                 {
-                    rigidbody.MovePosition(this.transform.position += moveVectorBeforeCorrection * paramater.DashSpeed * Time.deltaTime);
+                    switch (playerCostume)
+                    {
+                        case PlayerCostume.Normal:
+                            rigidbody.MovePosition(this.transform.position += moveVectorBeforeCorrection * paramater.DashSpeed * Time.deltaTime);
+                            break;
+                        case PlayerCostume.Costume01:
+                            rigidbody.MovePosition(this.transform.position += moveVectorBeforeCorrection * paramater.DashSpeed * paramater.Costume01_speedAdjust * Time.deltaTime);
+                            break;
+                        case PlayerCostume.Costume02:
+                            rigidbody.MovePosition(this.transform.position += moveVectorBeforeCorrection * paramater.DashSpeed * paramater.Costume02_speedAdjust * Time.deltaTime);
+                            break;
+                        default:
+                            break;
+                    }
                 }
                 break;
             default:
