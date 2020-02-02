@@ -18,7 +18,7 @@ public class TitlePopView : MonoBehaviour
 
 
 
-        Observable.Timer(TimeSpan.FromMilliseconds(1500))
+        Observable.Timer(TimeSpan.FromMilliseconds(2000))
         .Subscribe(_ => {
             Sequence Seq = DOTween.Sequence();
             Seq.Append(
@@ -27,11 +27,11 @@ public class TitlePopView : MonoBehaviour
             Seq.Append(
                 rect[0].DOLocalMoveY(0, tweenTime)
             );
-            Seq.SetLoops(-1);
+            Seq.SetLoops(-1).SetDelay(2);
         })
         .AddTo(this);
 
-        Observable.Timer(TimeSpan.FromMilliseconds(2000))
+        Observable.Timer(TimeSpan.FromMilliseconds(2500))
         .Subscribe(_ => {
             Sequence Seq2 = DOTween.Sequence();
             Seq2.Append(
@@ -40,7 +40,7 @@ public class TitlePopView : MonoBehaviour
             Seq2.Append(
                 rect[1].DOLocalMoveY(0, tweenTime)
             );
-            Seq2.SetLoops(-1);
+            Seq2.SetLoops(-1).SetDelay(2);
         })
         .AddTo(this);
 
