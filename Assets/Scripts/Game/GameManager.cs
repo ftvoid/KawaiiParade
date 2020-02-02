@@ -52,7 +52,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             .Where(x => x <= 0)
             .Subscribe(_ => {
                 // TODO : スコアをScriptableObjectから取得して判定
-                if(GameState.Instance.R_Score.Value >= 160000 )
+                if(GameState.Instance.R_Score.Value >= 70000 )
                 {
                     Debug.Log("ハッピーEND");
                     _endingType = "Happy";
