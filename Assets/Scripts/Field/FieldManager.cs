@@ -36,6 +36,8 @@ public class FieldManager : MonoBehaviour
 
 	private float _timer = 0.0f;
 
+	private int _testNextSpawnPoint = 0;
+
 	/// <summary>
 	/// シングルトン
 	/// </summary>
@@ -64,19 +66,23 @@ public class FieldManager : MonoBehaviour
 		{
 			//Spawn　Item
 			SpawnObjects(_fieldInfo.Parameter.SpawnItemValue, SpawnType.Item);
-			//Spawn　Enemy
-			SpawnObjects(_fieldInfo.Parameter.SpawnEnemyValue, SpawnType.Enemy);
 		}
 		else
 		{
 			TestCreateMapDatas();
 		}
 
-        GameState.Instance.R_Score
-            .Where(_ => EnemyManager.Instance)
-            .Where(x => x >= EnemyManager.Instance.NextSpawnScore)
-            .Subscribe(x => SpawnObjects(_fieldInfo.Parameter.SpawnEnemyValue, SpawnType.Enemy))
-            .AddTo(this);
+		GameState.Instance.R_Score
+			.Where(_ => EnemyManager.Instance)
+			.Where(x => x >= EnemyManager.Instance.NextSpawnScore)
+			.Subscribe(x => SpawnEnemy()/*SpawnObjects(_fieldInfo.Parameter.SpawnEnemyValue, SpawnType.Enemy)*/)
+			.AddTo(this);
+
+		//テスト用
+		//GameState.Instance.R_Score
+		//			.Where(_ => GameState.Instance.Score >= _testNextSpawnPoint)
+		//			.Subscribe(x => SpawnEnemy()/*SpawnObjects(_fieldInfo.Parameter.SpawnEnemyValue, SpawnType.Enemy)*/)
+		//			.AddTo(this);
 	}
 
 	// Update is called once per frame
@@ -145,6 +151,8 @@ public class FieldManager : MonoBehaviour
 		}
 	}
 
+	
+
 	/// <summary>
 	/// アイテム生成
 	/// </summary>
@@ -168,6 +176,42 @@ public class FieldManager : MonoBehaviour
 	{
         EnemyManager.Instance.SpawnEnemy(data._position);
 		//Instantiate(_enemyPrefab, data._position, Quaternion.identity, transform);
+	}
+
+	/// <summary>
+	/// Enenmyの生成
+	/// </summary>
+	private void SpawnEnemy()
+	{
+		Vector2 playerPos = GameState.Instance.Player.transform.position;
+		Vector2 spawnPos = Vector2.zero;
+		float maxRange = 5.0f;
+		bool flag = false;
+		for (int i = 0; i < 10; i++)
+		{
+			//マップデータ取得
+			Vector2 size = _fieldInfo.GetFieldSize;
+			var row = Random.Range(0, (int)size.x);
+			var column = Random.Range(0, (int)size.y);
+			var data = _fieldInfo.GetMapData(row, column);
+			spawnPos = data._position;
+			float dis = Vector2.Distance(playerPos, data._position);
+			if (dis > maxRange)
+			{
+				maxRange = dis;
+				//_testNextSpawnPoint += 20000;
+				//Instantiate(_testobj, spawnPos, Quaternion.identity);
+				EnemyManager.Instance.SpawnEnemy(spawnPos);
+				flag = true;
+			}
+		}
+		//もし10回回しても生成されなければ最後に保持した座標で生成
+		if (!flag)
+		{
+			//テスト
+			//Instantiate(_testobj, spawnPos, Quaternion.identity);
+			EnemyManager.Instance.SpawnEnemy(spawnPos);
+		}
 	}
 
 	/// <summary>

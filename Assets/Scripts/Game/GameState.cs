@@ -39,4 +39,21 @@ public class GameState : SingletonMonoBehaviour<GameState>
         get => _remainTime;
         set => _remainTime = value;
     }
+
+	/// <summary>
+	/// プレイヤーオブジェクト
+	/// </summary>
+	[SerializeField]
+	private GameObject _player = null;
+	public GameObject Player
+	{
+		get { return _player; }
+	}
+
+	private void Start()
+	{
+		//あんましやりたくない方法
+		//これでPlayerを取得しやすく
+		_player = GameObject.FindGameObjectWithTag("Player");
+	}
 }
