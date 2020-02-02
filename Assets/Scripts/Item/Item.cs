@@ -24,6 +24,8 @@ public class Item : MonoBehaviour
 		set { _mapId = value; }
 	}
 
+    [SerializeField] GameObject hitEffect;
+
 	/// <summary>
 	/// 回収フラグ
 	/// </summary>
@@ -32,18 +34,6 @@ public class Item : MonoBehaviour
 	{
 		get { return _isCollection; }
 	}
-
-	// Start is called before the first frame update
-	void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public static Item Create(GameObject prefab, ItemData data, Vector2 pos2d)
     {
@@ -71,6 +61,7 @@ public class Item : MonoBehaviour
             // TODO: insert into player inventory
             Debug.Log("Item collided with player");
 			_isCollection = true;
+            Instantiate(hitEffect, transform);
             SoundManager.PlaySound(SoundID.ItemGet);
         }
     }
