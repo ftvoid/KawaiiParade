@@ -22,6 +22,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     [SerializeField] private Behaviour[] _initialLockComponents;
 
+    [SerializeField] private GameObject _bgm;
+
     private bool _isGameStarted = false;
     private string _endingType;
 
@@ -113,6 +115,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
         // 各種スクリプト、オブジェクト有効化
         m_fieldManager.SetActive(true);
+        _bgm?.SetActive(true);
 
         for ( var i = 0 ; i < _initialLockComponents.Length ; ++i )
         {

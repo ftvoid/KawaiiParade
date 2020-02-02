@@ -236,7 +236,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &706717446
 AudioSource:
   m_ObjectHideFlags: 0
@@ -525,6 +525,7 @@ MonoBehaviour:
   - {fileID: 844783949}
   - {fileID: 1559115251}
   - {fileID: 47198055}
+  _bgm: {fileID: 706717445}
 --- !u!1001 &1188013515
 PrefabInstance:
   m_ObjectHideFlags: 0
