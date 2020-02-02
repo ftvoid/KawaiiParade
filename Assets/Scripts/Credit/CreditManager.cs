@@ -15,7 +15,11 @@ public class CreditManager : MonoBehaviour
     {
         this.UpdateAsObservable()
             .Where(_ => Input.anyKeyDown)
-            .Subscribe(_ => SceneChanger.Instance.ChangeScene(SceneType.Title));
+            .Subscribe(_ =>
+            {
+                SoundManager.PlaySound(SoundID.Click);
+                SceneChanger.Instance.ChangeScene(SceneType.Title);
+            });
 
         var param = SceneChanger.Instance.Param;
         var senario = param != null ? (string)param : "Happy";
