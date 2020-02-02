@@ -11,6 +11,7 @@ public enum SceneType
 	GamePlay,		//プレイシーン
 	Result,  		//リザルト
     Ending,         //エンディング
+    Credit,         //クレジット
 }
 
 public class SceneChanger : SingletonMonoBehaviour<SceneChanger>

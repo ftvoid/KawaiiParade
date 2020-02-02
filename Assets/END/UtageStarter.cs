@@ -33,7 +33,7 @@ public class UtageStarter : MonoBehaviour
             yield return null;
         }
 
-        // シナリオ再生後はタイトルシーンへ遷移
-        SceneChanger.Instance.ChangeScene(SceneType.Title);
+        // シナリオ再生後はクレジットシーンへ遷移
+        SceneChanger.Instance.ChangeScene(SceneType.Credit);
     }
 }
