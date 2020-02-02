@@ -47,7 +47,7 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
 			if (item.IsCollection)
 			{
                 //スコア加算
-				GameState.instance.Score += item.ItemData.points;
+				GameState.instance.Score += item.ItemDatas.points;
 				_itemList.Remove(item);
 				var mapData = FieldInfomation.instance.SearchMapData(item.MapID);
 				mapData._isItem = false;
@@ -55,9 +55,9 @@ public class ItemManager : SingletonMonoBehaviour<ItemManager>
 				int num2 = item.MapID % 10;
 				FieldInfomation.Instance.SetMapData(num1, num2, mapData);
 				var itemData = new ItemData();
-				itemData.points = item.ItemData.points;
-				itemData.color = item.ItemData.color;
-				itemData.sprite = item.ItemData.sprite;
+				itemData.points = item.ItemDatas.points;
+				itemData.color = item.ItemDatas.color;
+				itemData.sprite = item.ItemDatas.sprite;
 				_collectionList.Add(itemData);
 				Destroy(item.gameObject);
 

@@ -73,4 +73,27 @@ public class PlayerParamater : ScriptableObject
     }
     [SerializeField]
     private float invincibleTime;
+
+    public float Costume01_speedAdjust
+    {
+        get
+        {
+            return costume01_speedAdjust;
+        }
+
+    }
+    [SerializeField]
+    private float costume01_speedAdjust;
+
+    public float Costume02_speedAdjust
+    {
+        get
+        {
+            return costume02_speedAdjust;
+        }
+
+    }
+    [SerializeField]
+    private float costume02_speedAdjust;
+
 }

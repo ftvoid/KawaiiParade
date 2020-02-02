@@ -12,7 +12,7 @@ public class ItemPresenter : MonoBehaviour
 
     //それぞれの個数がとれればいいけど、毎回コレクションを検索するとかはだめな気がする
     //こっちでも独立して個数を持つけど、それだと値に差異が生まれる可能性もあるかも
-    [SerializeField] private int i1 = 0, i2 = 0, i3 = 0;
+    public int i1 = 0, i2 = 0, i3 = 0;
 
     public void ItemUpdate (bool _get, int _point)
     {

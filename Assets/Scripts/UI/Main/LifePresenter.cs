@@ -11,6 +11,8 @@ public class LifePresenter : MonoBehaviour
     //全然Presenterじゃない...
     void Start ()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>();
+
         player.playerLife
             .SkipLatestValueOnSubscribe()
             .Where(_ => _ < 3)

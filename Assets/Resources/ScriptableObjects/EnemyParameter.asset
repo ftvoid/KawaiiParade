@@ -15,5 +15,5 @@ MonoBehaviour:
   _minWalkDistance: 1
   _maxWalkDistance: 5
   _walkSpeed: 7
-  _stopDuration: 2
+  _stopDuration: 1
   _spawnScoreInterval: 20000

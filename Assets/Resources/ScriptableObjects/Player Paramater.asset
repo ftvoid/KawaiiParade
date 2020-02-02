@@ -15,7 +15,9 @@ MonoBehaviour:
   speed: 5
   staminaMax: 100
   life: 3
-  stopTime: 0.2
+  stopTime: 0.5
   dashSpeed: 10
-  dashTime: 5
-  invincibleTime: 1
+  dashTime: 3
+  invincibleTime: 3
+  costume01_speedAdjust: 0.95
+  costume02_speedAdjust: 0.97
