@@ -42,7 +42,9 @@ public class PlayerScript : MonoBehaviour
     GameObject Clothes;
     bool isDamage;
     bool isNaked;
-
+    //速度補正のために、獲得アイテム数を参照します。
+    [SerializeField]
+    ItemPresenter itemPresenter;
     SpriteRenderer clothesRenderer;    // Start is called before the first frame update
     void Start()
     {
@@ -153,42 +155,14 @@ public class PlayerScript : MonoBehaviour
                 break;
             case PlayerStatus.Walk:
                 {
-                    switch (playerCostume)
-                    {
-                        case PlayerCostume.Normal:
-                            rigidbody.MovePosition(this.transform.position += moveVectorBeforeCorrection * paramater.Speed * Time.deltaTime);
-                            break;
-                        case PlayerCostume.Costume01:
-                            rigidbody.MovePosition(this.transform.position += moveVectorBeforeCorrection * paramater.Speed * paramater.Costume01_speedAdjust * Time.deltaTime);
-                            break;
-                        case PlayerCostume.Costume02:
-                            rigidbody.MovePosition(this.transform.position += moveVectorBeforeCorrection * paramater.Speed * paramater.Costume02_speedAdjust * Time.deltaTime);
-                            break;
-                        default:
-                            break;
-                    }
+                    rigidbody.MovePosition(this.transform.position += moveVectorBeforeCorrection * paramater.Speed * Mathf.Pow(paramater.Costume01_speedAdjust, itemPresenter.i1) * Mathf.Pow(paramater.Costume02_speedAdjust, itemPresenter.i2)* Time.deltaTime);
+                    break;
                 }
-                break;
             case PlayerStatus.Dash:
                 {
-                    switch (playerCostume)
-                    {
-                        case PlayerCostume.Normal:
-                            rigidbody.MovePosition(this.transform.position += moveVectorBeforeCorrection * paramater.DashSpeed * Time.deltaTime);
-                            break;
-                        case PlayerCostume.Costume01:
-                            rigidbody.MovePosition(this.transform.position += moveVectorBeforeCorrection * paramater.DashSpeed * paramater.Costume01_speedAdjust * Time.deltaTime);
-                            break;
-                        case PlayerCostume.Costume02:
-                            rigidbody.MovePosition(this.transform.position += moveVectorBeforeCorrection * paramater.DashSpeed * paramater.Costume02_speedAdjust * Time.deltaTime);
-                            break;
-                        default:
-                            break;
-                    }
+                    rigidbody.MovePosition(this.transform.position += moveVectorBeforeCorrection * paramater.DashSpeed * Mathf.Pow(paramater.Costume01_speedAdjust, itemPresenter.i1) * Mathf.Pow(paramater.Costume02_speedAdjust, itemPresenter.i2) * Time.deltaTime);
+                    break;
                 }
-                break;
-            default:
-                break;
         }
 
     }
