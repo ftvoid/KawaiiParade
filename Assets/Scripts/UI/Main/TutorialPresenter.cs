@@ -17,7 +17,13 @@ public class TutorialPresenter : MonoBehaviour
             .AddTo(this);
 
         this.UpdateAsObservable()
-            .Where(_ => Input.anyKey && view.ready)
+            .Where(_ => Input.anyKey && view.readyCount == 1)
+            .First()
+            .Subscribe(_ => view.Tutorial2())
+            .AddTo(this);
+
+        this.UpdateAsObservable()
+            .Where(_ => Input.anyKey && view.readyCount == 2)
             .First()
             .Subscribe(_ => view.TutorialEnd())
             .AddTo(this);

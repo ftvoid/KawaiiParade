@@ -127,7 +127,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1188013515}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 122065195}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 28e07e9ba2448e44c90aa4c1de74b142, type: 3}
@@ -214,6 +214,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &122065195 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3392079690392964072, guid: 55764030ff431fe4b96a526a279d7c49,
+    type: 3}
+  m_PrefabInstance: {fileID: 1188013515}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &844783945
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,6 +302,18 @@ MonoBehaviour:
   _minMapID: 0
   _maxMapID: 0
   _BigMapData: []
+--- !u!114 &896764866 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1217959242, guid: ed8bbc87e9e62294a93217612e69ca17,
+    type: 3}
+  m_PrefabInstance: {fileID: 1465189880}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &912628264
 GameObject:
   m_ObjectHideFlags: 0
@@ -413,6 +431,7 @@ MonoBehaviour:
     value: 0
   _remainTime:
     value: 60
+  _player: {fileID: 0}
 --- !u!114 &1021442203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -428,6 +447,7 @@ MonoBehaviour:
   StartFlag:
     value: 0
   m_fieldManager: {fileID: 844783945}
+  m_enemyManager: {fileID: 122065195}
   _initialLockComponents:
   - {fileID: 1289092271}
   - {fileID: 1289092268}
@@ -794,6 +814,15 @@ PrefabInstance:
       propertyPath: manager
       value: 
       objectReference: {fileID: 1559115251}
+    - target: {fileID: 1373158692, guid: ed8bbc87e9e62294a93217612e69ca17, type: 3}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 896764866}
+    - target: {fileID: 1373158692, guid: ed8bbc87e9e62294a93217612e69ca17, type: 3}
+      propertyPath: tutorialSprite2
+      value: 
+      objectReference: {fileID: 21300000, guid: a682f85369bfa0c4ca00166593f3b1c0,
+        type: 3}
     - target: {fileID: 1508444765, guid: ed8bbc87e9e62294a93217612e69ca17, type: 3}
       propertyPath: m_AnchorMin.y
       value: 0
@@ -814,6 +843,11 @@ PrefabInstance:
       propertyPath: manager
       value: 
       objectReference: {fileID: 1021442203}
+    - target: {fileID: 108049574052047145, guid: ed8bbc87e9e62294a93217612e69ca17,
+        type: 3}
+      propertyPath: m_texts.Array.data[0]
+      value: GAME OVER
+      objectReference: {fileID: 0}
     - target: {fileID: 2019846615642523659, guid: ed8bbc87e9e62294a93217612e69ca17,
         type: 3}
       propertyPath: m_AnchorMin.y

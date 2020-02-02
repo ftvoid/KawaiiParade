@@ -18,6 +18,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     //4. 結果シーンに遷移
     public IntReactiveProperty StartFlag = new IntReactiveProperty(0);
     [SerializeField] private GameObject m_fieldManager;
+    [SerializeField] private GameObject m_enemyManager;
 
     [SerializeField] private Behaviour[] _initialLockComponents;
 
@@ -131,6 +132,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         }
 
         //ここでおじさんとか止める処理
+        m_enemyManager.SetActive(false);
         Debug.Log("ゲーム終了");
 
 
