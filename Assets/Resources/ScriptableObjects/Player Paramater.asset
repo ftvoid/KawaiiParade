@@ -19,5 +19,5 @@ MonoBehaviour:
   dashSpeed: 10
   dashTime: 3
   invincibleTime: 3
-  costume01_speedAdjust: 0.97
-  costume02_speedAdjust: 0.99
+  costume01_speedAdjust: 0.95
+  costume02_speedAdjust: 0.97
