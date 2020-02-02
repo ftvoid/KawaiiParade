@@ -32,7 +32,7 @@ public class TitleManager : MonoBehaviour
 								SceneChanger.Instance.ChangeScene(SceneType.Synopsis)
                             )
                             .AddTo(this);
-                    })
+                    }).AddTo(this)
         )
         .AddTo(this);
 
