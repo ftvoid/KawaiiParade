@@ -19,6 +19,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public IntReactiveProperty StartFlag = new IntReactiveProperty(0);
     [SerializeField] private GameObject m_fieldManager;
     [SerializeField] private GameObject m_enemyManager;
+    [SerializeField] private PlayerScript m_playerScript;
 
     [SerializeField] private Behaviour[] _initialLockComponents;
 
@@ -116,6 +117,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         // 各種スクリプト、オブジェクト有効化
         m_fieldManager.SetActive(true);
         _bgm?.SetActive(true);
+        m_playerScript.enabled = true;
 
         for ( var i = 0 ; i < _initialLockComponents.Length ; ++i )
         {
@@ -136,6 +138,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
         //ここでおじさんとか止める処理
         m_enemyManager.SetActive(false);
+        m_playerScript.enabled = false;
         Debug.Log("ゲーム終了");
 
 

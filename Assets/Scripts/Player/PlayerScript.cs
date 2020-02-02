@@ -123,7 +123,7 @@ public class PlayerScript : MonoBehaviour
     {
         var moveVectorBeforeCorrection = new Vector3(inputX, inputY, 0);
         PlayerMove(moveVectorBeforeCorrection);
-        Debug.Log(isNaked);
+        //Debug.Log(isNaked);
         //Debug.Log(isDamage);
     }
 
