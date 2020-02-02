@@ -15,6 +15,13 @@ using System.Collections.Generic;
 public class ItemDatas : ScriptableObject
 { 
 	public List<ItemData> dataList = new List<ItemData>();
+
+	[SerializeField,Header("服の色リスト")]
+	private List<Color> colorList = new List<Color>();
+	public List<Color> ColorList
+	{
+		get { return colorList; }
+	}
 }
 
 [System.Serializable]
@@ -29,4 +36,6 @@ public class ItemData
 	public Color color = Color.white;
 
 	public float speedReta = 0.0f;
+
+	public int incidence = 0;
 }
