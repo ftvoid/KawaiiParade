@@ -236,7 +236,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &95703643
 Transform:
   m_ObjectHideFlags: 0
@@ -784,10 +784,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 308623569}
-    characterCount: 15
+    characterCount: 16
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 2
+    wordCount: 3
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -1027,6 +1027,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cca0a377c543e24680573580d75e2e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _happyEnding: {fileID: 133521729}
+  _gameoverEnding: {fileID: 104909651}
+  _goodbyeEnding: {fileID: 95703642}
 --- !u!4 &391750460
 Transform:
   m_ObjectHideFlags: 0
@@ -2111,10 +2114,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1231082643}
-    characterCount: 10
+    characterCount: 15
     spriteCount: 0
-    spaceCount: 0
-    wordCount: 1
+    spaceCount: 1
+    wordCount: 2
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -2694,10 +2697,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1666762449}
-    characterCount: 7
+    characterCount: 17
     spriteCount: 0
-    spaceCount: 0
-    wordCount: 1
+    spaceCount: 1
+    wordCount: 2
     linkCount: 0
     lineCount: 1
     pageCount: 1
