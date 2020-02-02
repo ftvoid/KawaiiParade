@@ -14,10 +14,16 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     //0. チュートリアル
     //1. カウントダウン
     //2. ゲーム開始,FieldManagerをアクティブ
+    //3. ゲーム終了,
+    //4. 結果シーンに遷移
     public IntReactiveProperty StartFlag = new IntReactiveProperty(0);
     [SerializeField] private GameObject m_fieldManager;
+    [SerializeField] private GameObject m_enemyManager;
 
     [SerializeField] private Behaviour[] _initialLockComponents;
+
+    private bool _isGameStarted = false;
+    private string _endingType;
 
     public void StartGame()
     {
@@ -47,12 +53,29 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 if(GameState.Instance.R_Score.Value >= 5000 )
                 {
                     Debug.Log("ハッピーEND");
+                    _endingType = "Happy";
                 }
                 else
                 {
                     Debug.Log("おわかれEND");
+                    _endingType = "Goodbye";
                 }
+                StartFlag.Value = 3;
             });
+
+        var player = FindObjectOfType<PlayerScript>();
+        if ( player != null )
+        {
+            player.playerLife
+                .Where(_ => _isGameStarted)
+                .Where(x => x <= 0)
+                .Subscribe(_ => {
+                    Debug.Log("おじさんEND");
+                    _endingType = "Gameover";
+                    StartFlag.Value = 3;
+                    //SceneChanger.Instance.ChangeScene(SceneType.Ending, "Gameover");
+                });
+        }
 
         // 今は自動で開始
         //StartGame();
@@ -99,5 +122,29 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
             component.enabled = true;
         }
+
+        _isGameStarted = true;
+
+
+        while(StartFlag.Value < 3)
+        {
+            yield return null;
+        }
+
+        //ここでおじさんとか止める処理
+        m_enemyManager.SetActive(false);
+        Debug.Log("ゲーム終了");
+
+
+        while(StartFlag.Value < 4)
+        {
+            yield return null;
+        }
+        //何かボタンが押されたら、シーン遷移
+        //ここでシーン遷移処理
+        SceneChanger.Instance.ChangeScene(SceneType.Ending, _endingType);
+
+
+
     }
 }

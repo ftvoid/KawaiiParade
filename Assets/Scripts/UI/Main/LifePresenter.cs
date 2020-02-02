@@ -16,6 +16,7 @@ public class LifePresenter : MonoBehaviour
         player.playerLife
             .SkipLatestValueOnSubscribe()
             .Where(_ => _ < 3)
-            .Subscribe(_ => view.LifeUpdate(_));
+            .Subscribe(_ => view.LifeUpdate(_))
+            .AddTo(this);
     }
 }
