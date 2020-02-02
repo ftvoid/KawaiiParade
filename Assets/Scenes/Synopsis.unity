@@ -473,7 +473,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ccf9661c17629343a33362694ed7cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_text: "\u5730\u4E0A\u306E\u307E\u304D\u6563\u3089\u3057\u3066\u3057\u307E\u3063\u305F\uFF01"
+  m_text: "\u5730\u4E0A\u306B\u307E\u304D\u6563\u3089\u3057\u3066\u3057\u307E\u3063\u305F\uFF01"
   m_typewriter: {fileID: 496259796}
   _time_secound: 5
   _message_speed: 20
@@ -1470,7 +1470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ccf9661c17629343a33362694ed7cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_text: "\u5F7C\u6C0F\u304C\u6012\u308A\u306B\u307E\u304B\u305B\u3001\u5F7C\u5973\u306E\u79C1\u7269\u3092\u30DE\u30F3\u30B7\u30E7\u30F3\u306E80\u968E\u304B\u3089\u3002"
+  m_text: "\u5F7C\u6C0F\u304C\u6012\u308A\u306B\u307E\u304B\u305B\u3001\u5F7C\u5973\u306E\u79C1\u7269\u3092\u30DE\u30F3\u30B7\u30E7\u30F3\u306E80\u968E\u304B\u3089\u3001"
   m_typewriter: {fileID: 1546800089}
   _time_secound: 3
   _message_speed: 20
