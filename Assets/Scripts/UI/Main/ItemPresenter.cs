@@ -25,7 +25,7 @@ public class ItemPresenter : MonoBehaviour
         if(_point == 1000)
         {
             i1 += value;
-            view.ItemUpdate(0, i1);
+            view.ItemUpdate(2, i1);
         }
         else if(_point == 2000)
         {
@@ -35,7 +35,7 @@ public class ItemPresenter : MonoBehaviour
         else if(_point == 3000)
         {
             i3 += value;
-            view.ItemUpdate(2, i3);
+            view.ItemUpdate(0, i3);
         }
         else
         {

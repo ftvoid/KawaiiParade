@@ -6,7 +6,6 @@ using UniRx.Triggers;
 
 public class TutorialPresenter : MonoBehaviour
 {
-    public MainUITest model;
     public GameManager manager;
     public TutorialView view;
 
@@ -14,18 +13,27 @@ public class TutorialPresenter : MonoBehaviour
     {
         manager.StartFlag
             .Where(_ => _ == 0)
-            .Subscribe(_ => view.TutorialStart());
+            .Subscribe(_ => view.TutorialStart())
+            .AddTo(this);
 
         this.UpdateAsObservable()
-            .Where(_ => Input.anyKey && view.ready)
+            .Where(_ => Input.anyKey && view.readyCount == 1)
             .First()
-            .Subscribe(_ => view.TutorialEnd());
+            .Subscribe(_ => view.Tutorial2())
+            .AddTo(this);
+
+        this.UpdateAsObservable()
+            .Where(_ => Input.anyKey && view.readyCount == 2)
+            .First()
+            .Subscribe(_ => view.TutorialEnd())
+            .AddTo(this);
 
         view.flag
             .SkipLatestValueOnSubscribe()
             .Where(_ => _)
             .First()
-            .Subscribe(_ => manager.StartFlag.Value++);
+            .Subscribe(_ => manager.StartFlag.Value++)
+            .AddTo(this);
 
     }
 
