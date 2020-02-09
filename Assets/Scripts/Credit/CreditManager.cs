@@ -11,9 +11,14 @@ public class CreditManager : MonoBehaviour
 
     [SerializeField] private GameObject _goodbyeEnding;
 
+    [SerializeField] private float _ignoreDuration = 5;
+
     private void Start()
     {
+        var allowInputTime = Time.time + _ignoreDuration;
+
         this.UpdateAsObservable()
+            .Where(_ => Time.time >= allowInputTime)
             .Where(_ => Input.anyKeyDown)
             .Subscribe(_ =>
             {

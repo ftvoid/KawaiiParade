@@ -1331,6 +1331,7 @@ MonoBehaviour:
   _happyEnding: {fileID: 133521729}
   _gameoverEnding: {fileID: 104909651}
   _goodbyeEnding: {fileID: 95703642}
+  _ignoreDuration: 5
 --- !u!4 &391750460
 Transform:
   m_ObjectHideFlags: 0
